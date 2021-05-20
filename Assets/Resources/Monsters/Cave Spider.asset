@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a83538dd6fc754cbf8143a318faffa, type: 3}
+  m_Name: Cave Spider
+  m_EditorClassIdentifier: 
+  _act:
+  - _minion:
+      _speed: 4
+      _health: 3
+      _attackType: 0
+      _attack:
+      - {fileID: 11400000, guid: ddb7af3ade8991e48ba07bcbcb0b0d7b, type: 2}
+      - {fileID: 11400000, guid: cd5a2ec299beed7469f5e041019610ee, type: 2}
+      _defense:
+      - {fileID: 11400000, guid: 07dba250190597f45b51d4f68472cb98, type: 2}
+    _master:
+      _speed: 4
+      _health: 5
+      _attackType: 0
+      _attack:
+      - {fileID: 11400000, guid: ddb7af3ade8991e48ba07bcbcb0b0d7b, type: 2}
+      - {fileID: 11400000, guid: cd5a2ec299beed7469f5e041019610ee, type: 2}
+      _defense:
+      - {fileID: 11400000, guid: 07dba250190597f45b51d4f68472cb98, type: 2}
+  - _minion:
+      _speed: 4
+      _health: 5
+      _attackType: 0
+      _attack:
+      - {fileID: 11400000, guid: ddb7af3ade8991e48ba07bcbcb0b0d7b, type: 2}
+      - {fileID: 11400000, guid: cd5a2ec299beed7469f5e041019610ee, type: 2}
+      - {fileID: 11400000, guid: cd5a2ec299beed7469f5e041019610ee, type: 2}
+      _defense:
+      - {fileID: 11400000, guid: 07dba250190597f45b51d4f68472cb98, type: 2}
+    _master:
+      _speed: 4
+      _health: 7
+      _attackType: 0
+      _attack:
+      - {fileID: 11400000, guid: ddb7af3ade8991e48ba07bcbcb0b0d7b, type: 2}
+      - {fileID: 11400000, guid: cd5a2ec299beed7469f5e041019610ee, type: 2}
+      - {fileID: 11400000, guid: cd5a2ec299beed7469f5e041019610ee, type: 2}
+      _defense:
+      - {fileID: 11400000, guid: 07dba250190597f45b51d4f68472cb98, type: 2}

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef51031aa5622ac45aef6114b108b627, type: 3}
+  m_Name: Blue
+  m_EditorClassIdentifier: 
+  _faceImage:
+  - {fileID: 2800000, guid: 92ea1ce3b1f06a34d9be3024b1a38107, type: 3}
+  - {fileID: 2800000, guid: b73561599af030c48b031e6f53be3a4e, type: 3}
+  - {fileID: 2800000, guid: 2c5a0bbd0933924479b83226afefb042, type: 3}
+  - {fileID: 2800000, guid: 175c15f3dc84d8244b0ffb71b46e4967, type: 3}
+  - {fileID: 2800000, guid: ca6d338ab49017941aec005c999ada42, type: 3}
+  - {fileID: 2800000, guid: dce2c542f4d946242bbf58147cdd04d4, type: 3}
+  _color: {r: 0, g: 0, b: 1, a: 1}
+  _face:
+  - heart: 0
+    surge: 0
+    range: 0
+  - heart: 2
+    surge: 1
+    range: 2
+  - heart: 2
+    surge: 0
+    range: 3
+  - heart: 2
+    surge: 0
+    range: 4
+  - heart: 1
+    surge: 0
+    range: 5
+  - heart: 1
+    surge: 1
+    range: 6

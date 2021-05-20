@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f37affe3740f3546a1f60a4d1bbce0d, type: 3}
+  m_Name: Black
+  m_EditorClassIdentifier: 
+  _faceImage:
+  - {fileID: 2800000, guid: 4df86277dc8100e46841273d9d7b4455, type: 3}
+  - {fileID: 2800000, guid: 11c44ca24a0cb0b469b573c0685399d5, type: 3}
+  - {fileID: 2800000, guid: 11c44ca24a0cb0b469b573c0685399d5, type: 3}
+  - {fileID: 2800000, guid: 11c44ca24a0cb0b469b573c0685399d5, type: 3}
+  - {fileID: 2800000, guid: 0f85e69b9a3fd824783fff371b0e1d2a, type: 3}
+  - {fileID: 2800000, guid: 921878d9266ed264ab61d99bf68913cf, type: 3}
+  _color: {r: 0, g: 0, b: 0, a: 1}
+  _defensePerFace: 000000000200000002000000020000000300000004000000
