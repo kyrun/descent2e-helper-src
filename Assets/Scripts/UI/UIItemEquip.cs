@@ -19,12 +19,7 @@ public class UIItemEquip : MonoBehaviour
 		_listToggleOther.Add(_baseItemToggleOther);
 	}
 
-	void Start()
-	{
-		Init();
-	}
-
-	public void Init()
+	void OnEnable()
 	{
 		int nHand = 0;
 		int nArmor = 0;

@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public abstract class UIListSelect<T> : MonoBehaviour where T : ScriptableObject
+public abstract class UIListButton<T> : MonoBehaviour where T : ScriptableObject
 {
 	[SerializeField] protected List<T> _items = default;
 	[SerializeField] protected Button _defaultButton = default;
 
 	protected List<Button> _listButton = new List<Button>();
 
-	void Awake()
+	protected virtual void Awake()
 	{
 		for (int i = 0; i < _items.Count; ++i)
 		{

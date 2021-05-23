@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class UIMonsterVarietySelect : MonoBehaviour
 {
-	[SerializeField] Button _btnMaster = default;
 	[SerializeField] Button _btnMinion = default;
+	[SerializeField] Button _btnMaster = default;
 	[SerializeField] UICombatRoller _combatRoller = default;
 
 	MonsterDef _monster;
@@ -14,6 +14,18 @@ public class UIMonsterVarietySelect : MonoBehaviour
 
 	void Awake()
 	{
+		_btnMinion.onClick.AddListener(() =>
+		{
+			var group = _monster.ActGroup;
+			if (_monsterIsAttacking)
+			{
+				SetupCombatRoller(group.Minion, Game.PlayerCharacter);
+			}
+			else
+			{
+				SetupCombatRoller(Game.PlayerCharacter, group.Minion);
+			}
+		});
 		_btnMaster.onClick.AddListener(() =>
 		{
 			var group = _monster.ActGroup;
@@ -25,18 +37,6 @@ public class UIMonsterVarietySelect : MonoBehaviour
 			else
 			{
 				SetupCombatRoller(Game.PlayerCharacter, group.Master);
-			}
-		});
-		_btnMinion.onClick.AddListener(() =>
-		{
-			var group = _monster.ActGroup;
-			if (_monsterIsAttacking)
-			{
-				SetupCombatRoller(group.Minion, Game.PlayerCharacter);
-			}
-			else
-			{
-				SetupCombatRoller(Game.PlayerCharacter, group.Minion);
 			}
 		});
 	}

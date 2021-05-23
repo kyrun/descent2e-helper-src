@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Definitions/Monster", order = 10000)]
 public class MonsterDef : ScriptableObject
 {
+	readonly Color COLOR_MASTER = new Color(0.882353f, 0.06666667f, 0.0627451f);
 	[SerializeField] List<VarietyGroup> _act = default;
 
 	void OnEnable()
@@ -12,7 +13,7 @@ public class MonsterDef : ScriptableObject
 		for (int i = 0; i < _act.Count; ++i)
 		{
 			_act[i].Minion.InitName(name + " (Minion, Act " + (i + 1) + ")");
-			_act[i].Master.InitName(name + " (Master, Act " + (i + 1) + ")");
+			_act[i].Master.InitName(name + " (<color=#"+ ColorUtility.ToHtmlStringRGB(COLOR_MASTER) + ">Master</color>, Act " + (i + 1) + ")");
 		}
 	}
 
@@ -41,12 +42,15 @@ public class MonsterDef : ScriptableObject
 		[SerializeField] int _speed = 4;
 		[Range(0, 20)]
 		[SerializeField] int _health = 4;
+		[Range(0, 3)]
+		[SerializeField] int _pierce = 0;
 		[SerializeField] AttackType _attackType = default;
 		[SerializeField] List<AttackDieDef> _attack = default;
 		[SerializeField] List<DefenseDieDef> _defense = default;
 
 		public int Speed { get { return _speed; } }
 		public int Health { get { return _health; } }
+		public int Pierce { get { return _pierce; } }
 		public AttackType AttackType { get { return _attackType; } }
 
 		public void InitName(string initname)

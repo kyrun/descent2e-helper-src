@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIClassSelect : UIListSelect<ClassDef>
+public class UIClassSelect : UIListButton<ClassDef>
 {
     CharacterDef _characterDef;
 

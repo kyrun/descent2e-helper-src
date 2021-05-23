@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIMonsterSelect : UIListSelect<MonsterDef>
+public class UIMonsterSelect : UIListButton<MonsterDef>
 {
 	[SerializeField] UIMonsterVarietySelect _varietySelect = default;
 

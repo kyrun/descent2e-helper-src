@@ -26,4 +26,19 @@ public class CharacterDef : ScriptableObject
 
 	public Archetype Archetype { get { return _archetype; } }
 	public List<DefenseDieDef> DefenseDice { get { return _defense; } }
+	public int Speed { get { return _speed; } }
+	public int Health { get { return _health; } }
+	public int Stamina { get { return _stamina; } }
+	public int Might { get { return _might; } }
+	public int Knowledge { get { return _knowledge; } }
+	public int Willpower { get { return _willpower; } }
+	public int Awareness { get { return _awareness; } }
+}
+
+public enum Attribute
+{
+	Might,
+	Knowledge,
+	Willpower,
+	Awareness
 }

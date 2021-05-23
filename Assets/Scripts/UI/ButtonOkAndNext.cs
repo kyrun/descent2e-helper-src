@@ -7,6 +7,8 @@ public class ButtonOkAndNext : MonoBehaviour
 {
 	[SerializeField] Button _btnOK = default;
 
+	public Button BtnOK { get { return _btnOK; } }
+
 	void Awake()
 	{
 		_btnOK.onClick.AddListener(Next);

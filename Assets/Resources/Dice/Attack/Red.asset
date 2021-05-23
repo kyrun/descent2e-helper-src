@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Red
   m_EditorClassIdentifier: 
   _faceImage:
-  - {fileID: 2800000, guid: 8aace005ddbe11b4abfdfcb733a6c635, type: 3}
-  - {fileID: 2800000, guid: c6f12d36c1ad1f044abfefe7c68f3618, type: 3}
-  - {fileID: 2800000, guid: c6f12d36c1ad1f044abfefe7c68f3618, type: 3}
-  - {fileID: 2800000, guid: c6f12d36c1ad1f044abfefe7c68f3618, type: 3}
-  - {fileID: 2800000, guid: 70630052d9955b340a1768e794164053, type: 3}
-  - {fileID: 2800000, guid: 85788e12db0aadc41821ff3d70a3f02b, type: 3}
+  - {fileID: 21300000, guid: 8aace005ddbe11b4abfdfcb733a6c635, type: 3}
+  - {fileID: 21300000, guid: c6f12d36c1ad1f044abfefe7c68f3618, type: 3}
+  - {fileID: 21300000, guid: c6f12d36c1ad1f044abfefe7c68f3618, type: 3}
+  - {fileID: 21300000, guid: c6f12d36c1ad1f044abfefe7c68f3618, type: 3}
+  - {fileID: 21300000, guid: 70630052d9955b340a1768e794164053, type: 3}
+  - {fileID: 21300000, guid: 85788e12db0aadc41821ff3d70a3f02b, type: 3}
   _color: {r: 1, g: 0, b: 0, a: 1}
   _face:
   - heart: 1

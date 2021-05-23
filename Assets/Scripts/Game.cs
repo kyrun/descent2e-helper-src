@@ -8,4 +8,6 @@ public static class Game
 	public static int NumPlayers = 4;
 
 	public static Character PlayerCharacter;
+
+	public static bool IsReady { get { return PlayerCharacter != null; } }
 }

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Grey
   m_EditorClassIdentifier: 
   _faceImage:
-  - {fileID: 2800000, guid: ec763574aadac41498c3c458ffae44d5, type: 3}
-  - {fileID: 2800000, guid: 07becab3a57acc446bd6410507ce65cd, type: 3}
-  - {fileID: 2800000, guid: 07becab3a57acc446bd6410507ce65cd, type: 3}
-  - {fileID: 2800000, guid: 07becab3a57acc446bd6410507ce65cd, type: 3}
-  - {fileID: 2800000, guid: fcf45dfadd2ab5249923a70106bc6cde, type: 3}
-  - {fileID: 2800000, guid: 9783f79f75e9e0141b67cbe5a01c3cf7, type: 3}
+  - {fileID: 21300000, guid: ec763574aadac41498c3c458ffae44d5, type: 3}
+  - {fileID: 21300000, guid: 07becab3a57acc446bd6410507ce65cd, type: 3}
+  - {fileID: 21300000, guid: 07becab3a57acc446bd6410507ce65cd, type: 3}
+  - {fileID: 21300000, guid: 07becab3a57acc446bd6410507ce65cd, type: 3}
+  - {fileID: 21300000, guid: fcf45dfadd2ab5249923a70106bc6cde, type: 3}
+  - {fileID: 21300000, guid: 9783f79f75e9e0141b67cbe5a01c3cf7, type: 3}
   _color: {r: 0.76470596, g: 0.7803922, b: 0.7843138, a: 1}
   _defensePerFace: 000000000100000001000000010000000200000003000000

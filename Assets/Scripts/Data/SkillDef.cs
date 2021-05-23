@@ -9,4 +9,6 @@ public class SkillDef : ScriptableObject
 	[SerializeField] int _staminaCost = default;
 	[SerializeField] bool _isAction = default;
 	[SerializeField] bool _isExhaustable = default;
+
+	public int XP { get { return _xp; } }
 }

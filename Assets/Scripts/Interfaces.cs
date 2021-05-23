@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public interface IAttacker
 {
 	string name { get; }
+	int Pierce { get; }
 	List<AttackDieDef> AttackDice { get; }
 	AttackType AttackType { get; }
 }

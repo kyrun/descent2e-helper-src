@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UICharSelect : UIListSelect<CharacterDef>
+public class UICharSelect : UIListButton<CharacterDef>
 {
     [SerializeField] UIClassSelect _classSelect = default;
 
