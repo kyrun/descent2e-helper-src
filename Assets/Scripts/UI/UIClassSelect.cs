@@ -7,12 +7,13 @@ using TMPro;
 
 public class UIClassSelect : UIListButton<ClassDef>
 {
+    [SerializeField] UIInputName _uiInputName = default;
+
     CharacterDef _characterDef;
 
     protected override void OnButtonPress(ClassDef classDef)
     {
-        Game.PlayerCharacter = new Character(_characterDef, classDef);
-        SceneManager.LoadScene("Main");
+        _uiInputName.Setup(_characterDef, classDef);
     }
 
     public void Setup(CharacterDef charDef)

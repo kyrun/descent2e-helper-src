@@ -26,19 +26,19 @@ public class UISkillSelect : UIListToggle<SkillDef>
 		_items = new List<SkillDef>(_items.OrderBy(item => item.XP).ThenBy(item => item.name));
 	}
 
-	protected override void OnToggleOff(SkillDef item)
+	protected override void OnToggleOn(SkillDef skill)
 	{
-		if (!Game.PlayerCharacter.Skills.Contains(item))
+		if (!Game.PlayerCharacter.Skills.Contains(skill))
 		{
-			Game.PlayerCharacter.Skills.Add(item);
+			Game.PlayerCharacter.Skills.Add(skill);
 		}
 	}
 
-	protected override void OnToggleOn(SkillDef item)
+	protected override void OnToggleOff(SkillDef skill)
 	{
-		if (Game.PlayerCharacter.Skills.Contains(item))
+		if (Game.PlayerCharacter.Skills.Contains(skill))
 		{
-			Game.PlayerCharacter.Skills.Remove(item);
+			Game.PlayerCharacter.Skills.Remove(skill);
 		}
 	}
 

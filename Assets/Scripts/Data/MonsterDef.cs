@@ -12,8 +12,8 @@ public class MonsterDef : ScriptableObject
 	{
 		for (int i = 0; i < _act.Count; ++i)
 		{
-			_act[i].Minion.InitName(name + " (Minion, Act " + (i + 1) + ")");
-			_act[i].Master.InitName(name + " (<color=#"+ ColorUtility.ToHtmlStringRGB(COLOR_MASTER) + ">Master</color>, Act " + (i + 1) + ")");
+			_act[i].Minion.InitName(name);
+			_act[i].Master.InitName("<color=#"+ ColorUtility.ToHtmlStringRGB(COLOR_MASTER) + ">Master</color> " + name);
 		}
 	}
 
@@ -21,7 +21,7 @@ public class MonsterDef : ScriptableObject
 	{
 		get
 		{
-			return _act[Game.Act - 1];
+			return _act[Game.PlayerCharacter.Act - 1];
 		}
 	}
 
@@ -55,7 +55,7 @@ public class MonsterDef : ScriptableObject
 
 		public void InitName(string initname)
 		{
-			name = initname;
+			name = initname + " (HP: " + Health + ")";
 		}
 
 		public string name { get; private set; }
@@ -79,9 +79,7 @@ public class MonsterDef : ScriptableObject
 
 	public Properties GetMonsterDef(bool isMaster)
 	{
-		var group = _act[Game.Act - 1];
-
-		if (isMaster) return group.Master;
-		else return group.Minion;
+		if (isMaster) return ActGroup.Master;
+		else return ActGroup.Minion;
 	}
 }

@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Definitions/Class", order = 10000)]
-public class ClassDef : ScriptableObject
+public class ClassDef : BaseDef<ClassDef>
 {
 	[SerializeField] Archetype _archetype = default;
 	[SerializeField] List<ItemDef> _startingItem = default;
@@ -16,4 +16,8 @@ public class ClassDef : ScriptableObject
 	public Archetype Archetype { get { return _archetype; } }
 	public ReadOnlyCollection<ItemDef> StartingItems { get { return _startingItem.AsReadOnly(); } }
 	public ReadOnlyCollection<SkillDef> StartingSkills { get { return _startingSkill.AsReadOnly(); } }
+	public ReadOnlyCollection<SkillDef> Cost1Skills { get { return _1CostSkill.AsReadOnly(); } }
+	public ReadOnlyCollection<SkillDef> Cost2Skills { get { return _2CostSkill.AsReadOnly(); } }
+	public ReadOnlyCollection<SkillDef> Cost3Skills { get { return _3CostSkill.AsReadOnly(); } }
+
 }

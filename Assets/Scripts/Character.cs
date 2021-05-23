@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Character : IAttacker, IDefender
 {
+	public int Act { get; private set; } = 1;
+	public int NumPlayers { get; private set; } = 1;
+
 	List<AttackDieDef> _listAttackDice = new List<AttackDieDef>();
 	List<DefenseDieDef> _listDefenseDice = new List<DefenseDieDef>();
 
@@ -13,6 +16,11 @@ public class Character : IAttacker, IDefender
 
 	public int Damage { get; private set; }
 	public int Fatigue { get; private set; }
+
+	public Dictionary<ItemDef, bool> Items = new Dictionary<ItemDef, bool>();
+	public List<SkillDef> Skills = new List<SkillDef>();
+
+	public List<Condition> Conditions = new List<Condition>();
 
 	public int Speed
 	{
@@ -143,11 +151,6 @@ public class Character : IAttacker, IDefender
 			return pierce;
 		}
 	}
-
-	public Dictionary<ItemDef, bool> Items = new Dictionary<ItemDef, bool>();
-	public List<SkillDef> Skills = new List<SkillDef>();
-
-	public List<Condition> Conditions = new List<Condition>();
 
 	public Character(CharacterDef definition, ClassDef classDef)
 	{
@@ -300,15 +303,143 @@ public class Character : IAttacker, IDefender
 		}
 	}
 
-	// TODO: load from string
-	public Character(string serializedString)
+	const char DELIMITER = '|';
+
+	public Character(string saveStr)
 	{
+		var str = saveStr.Split('\n');
+
+		int i = 0;
+		if (int.TryParse(str[i], out int numPlayers))
+		{
+			NumPlayers = numPlayers;
+		}
+		else
+		{
+			Debug.LogWarning("Failed to initialize character!");
+			return;
+		}
+
+		++i;
+		if (int.TryParse(str[i], out int act))
+		{
+			Act = act;
+		}
+		else
+		{
+			Debug.LogWarning("Failed to initialize character!");
+			return;
+		}
+
+		++i;
+		Definition = CharacterDef.Get(str[i]);
+
+		++i;
+		Class = ClassDef.Get(str[i]);
+
+		++i;
+		Damage = int.Parse(str[i]);
+
+		++i;
+		Fatigue = int.Parse(str[i]);
+
+		// Equipped
+		++i;
+		var splitNames = str[i].Split(DELIMITER);
+		foreach (var itemName in splitNames)
+		{
+			var item = ItemDef.Get(itemName);
+			if (item != null) Items.Add(item, true);
+		}
+
+		// Unequipped
+		++i;
+		splitNames = str[i].Split(DELIMITER);
+		foreach (var itemName in splitNames)
+		{
+			var item = ItemDef.Get(itemName);
+			if (item != null) Items.Add(item, false);
+		}
+
+		// Skills
+		++i;
+		splitNames = str[i].Split(DELIMITER);
+		foreach (var skillName in splitNames)
+		{
+			var skill = SkillDef.Get(skillName);
+			if (skill != null) Skills.Add(skill);
+		}
+
+		// Conditions
+		++i;
+		splitNames = str[i].Split(DELIMITER);
+		foreach (var condName in splitNames)
+		{
+			if (System.Enum.TryParse(condName, out Condition condition))
+			{
+				Conditions.Add(condition);
+			}
+		}
 	}
 
 	// TODO: save as string
 	public string ToSaveString()
 	{
-		return base.ToString();
+		string saveStr =
+			NumPlayers + "\n" +
+			Act + "\n" +
+			name + "\n" +
+			Class.name + "\n" +
+			Damage + "\n" +
+			Fatigue + "\n";
+
+		// Equipped
+		foreach (var kvp in Items)
+		{
+			if (kvp.Value)
+			{
+				saveStr += kvp.Key.name + DELIMITER;
+			}
+		}
+		RemoveLastDelimiter(ref saveStr);
+		saveStr += "\n";
+
+		// Unequipped
+		foreach (var kvp in Items)
+		{
+			if (!kvp.Value)
+			{
+				saveStr += kvp.Key.name + DELIMITER;
+			}
+		}
+		RemoveLastDelimiter(ref saveStr);
+		saveStr += "\n";
+
+		// Skills
+		foreach (var skill in Skills)
+		{
+			saveStr += skill.name + DELIMITER;
+		}
+		RemoveLastDelimiter(ref saveStr);
+		saveStr += "\n";
+
+		// Conditions
+		foreach (var condition in Conditions)
+		{
+			saveStr += condition.ToString() + DELIMITER;
+		}
+		RemoveLastDelimiter(ref saveStr);
+		saveStr += "\n";
+
+		return saveStr;
+	}
+
+	void RemoveLastDelimiter(ref string str)
+	{
+		if (str[str.Length - 1] == DELIMITER)
+		{
+			str = str.Substring(0, str.Length - 1);
+		}
 	}
 
 	static int GetHandCount(ItemDef item)

@@ -21,4 +21,17 @@ public class DebugStart : MonoBehaviour
 			//Game.PlayerCharacter.AddItem(Resources.Load("Items/Other/Scorpion Helm") as ItemOtherDef);
 		}
 	}
+
+	void Update()
+	{
+		//if (Input.GetKeyDown(KeyCode.Space))
+		//{
+		//	var newChar = new Character(Game.PlayerCharacter.ToSaveString());
+		//	print(newChar.ToSaveString());
+		//}
+		//if (Input.GetKeyDown(KeyCode.Return))
+		//{
+		//	print(Game.PlayerCharacter.ToSaveString());
+		//}
+	}
 }

@@ -61,7 +61,7 @@ public class UIInfo : MonoBehaviour
 		}
 	}
 
-	void Start()
+	IEnumerator Start()
 	{
 		if (Game.PlayerCharacter != null) _textCharacter.text = Game.PlayerCharacter.Definition.name + ", " + Game.PlayerCharacter.Class.name;
 		else
@@ -70,6 +70,11 @@ public class UIInfo : MonoBehaviour
 			Game.PlayerCharacter = new Character(Resources.Load("Characters/Healer/Avric Albright") as CharacterDef,
 				Resources.Load("Classes/Healer/Disciple/Disciple") as ClassDef);
 		}
+
+		yield return null;
+
+		UpdateDamage();
+		UpdateFatigue();
 	}
 
 	void OnEnable()

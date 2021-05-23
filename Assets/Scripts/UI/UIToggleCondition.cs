@@ -55,6 +55,8 @@ public class UIToggleCondition : MonoBehaviour
 	void OnEnable()
 	{
 		Messenger.Subscribe<MsgConditionChanged>(OnConditionChange);
+
+		UpdateCondition(_condition);
 	}
 
 	void OnDisable()
@@ -64,9 +66,14 @@ public class UIToggleCondition : MonoBehaviour
 
 	void OnConditionChange(MsgConditionChanged msg)
 	{
+		UpdateCondition(msg.Condition);
+	}
+
+	void UpdateCondition(Condition condition)
+	{
 		if (Game.PlayerCharacter == null) return;
 
-		if (_condition == msg.Condition)
+		if (_condition == condition)
 		{
 			var hasCondition = Game.PlayerCharacter.Conditions.Contains(_condition);
 			_image.color = hasCondition ? _colorOn : _colorOff;

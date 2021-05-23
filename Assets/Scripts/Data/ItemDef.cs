@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ItemDef : ScriptableObject
+public abstract class ItemDef : BaseDef<ItemDef>
 {
 	[SerializeField] List<ItemTrait> _trait = default;
 
+	public IEnumerable<ItemTrait> Traits { get { return _trait; } }
 	public abstract WornType Worn { get; }
 
 	public enum ItemTrait

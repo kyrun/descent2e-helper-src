@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Definitions/Character", order = 10000)]
-public class CharacterDef : ScriptableObject
+public class CharacterDef : BaseDef<CharacterDef>
 {
 	[SerializeField] Archetype _archetype = default;
 	[Header("Characteristics")]
