@@ -19,7 +19,7 @@ public abstract class UIListButton<T> : MonoBehaviour where T : ScriptableObject
 			var button = _defaultButton;
 			var def = _items[i];
 			if (i > 0) button = Instantiate(_defaultButton, _defaultButton.transform.parent);
-			SetButtonText(button, def.name);
+			SetButtonText(button, ItemName(def));
 
 			button.onClick.AddListener(() =>
 			{
@@ -36,4 +36,9 @@ public abstract class UIListButton<T> : MonoBehaviour where T : ScriptableObject
 	}
 
 	protected abstract void OnButtonPress(T def);
+
+	protected virtual string ItemName(T def)
+	{
+		return def.name;
+	}
 }

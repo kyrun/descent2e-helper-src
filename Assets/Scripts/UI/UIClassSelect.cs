@@ -17,6 +17,7 @@ public class UIClassSelect : UIListButton<ClassDef>
 
     public void Setup(CharacterDef charDef)
     {
+        gameObject.SetActive(true);
         _characterDef = charDef;
         for (int i = 0; i < _listButton.Count; ++i)
         {

@@ -12,4 +12,9 @@ public class UICharSelect : UIListButton<CharacterDef>
     {
         _classSelect.Setup(character);
 	}
+
+	protected override string ItemName(CharacterDef def)
+	{
+		return def.name + " (" + def.Archetype + ")";
+	}
 }

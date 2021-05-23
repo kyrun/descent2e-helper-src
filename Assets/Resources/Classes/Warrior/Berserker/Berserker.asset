@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb6fe897dcc09043844b0a0914154c1, type: 3}
+  m_Name: Berserker
+  m_EditorClassIdentifier: 
+  _archetype: 0
+  _startingItem:
+  - {fileID: 11400000, guid: c1ea09b30be2d8a40b7f33d9e495305d, type: 2}
+  _startingSkill:
+  - {fileID: 11400000, guid: fbb3a14e15e53c3478e0b6a4d07f2903, type: 2}
+  _1CostSkill:
+  - {fileID: 11400000, guid: 654a273674a7646439e3b953f67b80c4, type: 2}
+  - {fileID: 11400000, guid: 3c2229d18d5139343be91acdc98d1e39, type: 2}
+  - {fileID: 11400000, guid: f044f69639e08094aa485a5be3a6d683, type: 2}
+  _2CostSkill:
+  - {fileID: 11400000, guid: 15c3a1bba79bc6641bbaa88a16816eeb, type: 2}
+  - {fileID: 11400000, guid: a70b1e76f3674e04790c47770f200b4c, type: 2}
+  - {fileID: 11400000, guid: 552eb8a605272b84c9061c453b6add5a, type: 2}
+  _3CostSkill:
+  - {fileID: 11400000, guid: 5c4158a2af1e91a43943c02928b1456c, type: 2}
+  - {fileID: 11400000, guid: 2435edc7a027aac429797b09643b6873, type: 2}
