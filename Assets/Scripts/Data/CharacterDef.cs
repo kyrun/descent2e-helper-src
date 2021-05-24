@@ -35,6 +35,15 @@ public class CharacterDef : BaseDef<CharacterDef>
 	public int Awareness { get { return _awareness; } }
 }
 
+public enum Modifier
+{
+	Speed,
+	Health,
+	Stamina,
+	Pierce,
+	Range
+}
+
 public enum Attribute
 {
 	Might,

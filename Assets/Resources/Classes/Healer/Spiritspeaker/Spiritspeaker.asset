@@ -17,14 +17,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d802f015d6006541b00f2ed4aac794b, type: 2}
   _startingSkill:
   - {fileID: 11400000, guid: 26f93cc33abd696418a11960849ae99a, type: 2}
-  _1CostSkill:
+  _Cost1Skill:
   - {fileID: 11400000, guid: 8dc7f6f5431e15c4793091bfad7dcdff, type: 2}
   - {fileID: 11400000, guid: 46c0ad4678927c54ca5c997c9fa64a8e, type: 2}
   - {fileID: 11400000, guid: bcd0dd6067bee244c9f8632a45f71266, type: 2}
-  _2CostSkill:
+  _Cost2Skill:
   - {fileID: 11400000, guid: a5f3bec14c782e64098a3c1906aee3d6, type: 2}
   - {fileID: 11400000, guid: 9057cd4aa97334949b09d80a50f57664, type: 2}
   - {fileID: 11400000, guid: e68a0cfe7b1429a45ad4156e57bc6697, type: 2}
-  _3CostSkill:
+  _Cost3Skill:
   - {fileID: 11400000, guid: 2e0089319f10bf646a1880e00d4163f2, type: 2}
   - {fileID: 11400000, guid: 95b2de8acc3bf4b46b9d6c8e2bdc9671, type: 2}

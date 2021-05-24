@@ -7,7 +7,7 @@ using TMPro;
 
 public class UIInfo : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _textCharacter = default;
+	[SerializeField] TextMeshProUGUI _textCharacter = default;
 	[SerializeField] TextMeshProUGUI _txtDmg = default;
 	[SerializeField] TextMeshProUGUI _txtFatigue = default;
 	[SerializeField] Button _btnIncDmg = default;
@@ -53,32 +53,29 @@ public class UIInfo : MonoBehaviour
 		if (Game.PlayerCharacter == null) return;
 		while (Game.PlayerCharacter.Damage < Game.PlayerCharacter.Health) Game.PlayerCharacter.IncrementDamage();
 		while (Game.PlayerCharacter.Fatigue < Game.PlayerCharacter.Stamina) Game.PlayerCharacter.IncrementFatigue();
-		UpdateDamage();
-		UpdateFatigue();
+
 		while (Game.PlayerCharacter.Conditions.Count > 0)
 		{
 			Game.PlayerCharacter.RemoveCondition(Game.PlayerCharacter.Conditions[0]);
 		}
 	}
 
-	IEnumerator Start()
+	void Start()
 	{
-		if (Game.PlayerCharacter != null) _textCharacter.text = Game.PlayerCharacter.Definition.name + ", " + Game.PlayerCharacter.Class.name;
+		if (Game.IsReady) _textCharacter.text = Game.PlayerCharacter.Definition.name + ", " + Game.PlayerCharacter.Class.name;
 		else
 		{
 			_textCharacter.text = "Undefined Character, Undefined Class";
 			Game.PlayerCharacter = new Character(Resources.Load("Characters/Healer/Avric Albright") as CharacterDef,
 				Resources.Load("Classes/Healer/Disciple/Disciple") as ClassDef);
 		}
-
-		yield return null;
-
-		UpdateDamage();
-		UpdateFatigue();
 	}
 
-	void OnEnable()
+	void Update()
 	{
+		if (!Game.IsReady) return;
+
+		// TODO: don't update every frame
 		UpdateDamage();
 		UpdateFatigue();
 	}

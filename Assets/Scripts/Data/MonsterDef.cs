@@ -44,6 +44,9 @@ public class MonsterDef : ScriptableObject
 		[SerializeField] int _health = 4;
 		[Range(0, 3)]
 		[SerializeField] int _pierce = 0;
+		//[Range(0, 10)]
+		//[SerializeField]
+		int _rangeModifier = 0; // Hidden for now
 		[SerializeField] AttackType _attackType = default;
 		[SerializeField] List<AttackDieDef> _attack = default;
 		[SerializeField] List<DefenseDieDef> _defense = default;
@@ -51,6 +54,7 @@ public class MonsterDef : ScriptableObject
 		public int Speed { get { return _speed; } }
 		public int Health { get { return _health; } }
 		public int Pierce { get { return _pierce; } }
+		public int RangeModifier { get { return _rangeModifier; } }
 		public AttackType AttackType { get { return _attackType; } }
 
 		public void InitName(string initname)

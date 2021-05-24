@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce97cac7fab51f44ea30471d96b03eb7, type: 3}
   m_Name: Crossbow
   m_EditorClassIdentifier: 
-  _trait: 0400000006000000
+  _traits: 0400000006000000
+  _modifiers:
+  - {fileID: 11400000, guid: cea061b4c4889fe408ac811df01848da, type: 2}
   _attackType: 1
   _handedness: 0
-  _pierce: 1
   _attackDice:
   - {fileID: 11400000, guid: ddb7af3ade8991e48ba07bcbcb0b0d7b, type: 2}
   - {fileID: 11400000, guid: cd5a2ec299beed7469f5e041019610ee, type: 2}

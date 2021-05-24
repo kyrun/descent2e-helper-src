@@ -24,10 +24,9 @@ public class UIItemEquip : MonoBehaviour
 		int nHand = 0;
 		int nArmor = 0;
 		int nOther = 0;
-		foreach (var kvp in Game.PlayerCharacter.Items)
+		foreach (var item in Game.PlayerCharacter.Items)
 		{
-			var item = kvp.Key;
-			bool equipped = kvp.Value;
+			bool equipped = Game.PlayerCharacter.IsEquipped(item);
 			switch (item.Worn)
 			{
 				case WornType.Hand:

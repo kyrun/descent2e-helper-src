@@ -28,18 +28,12 @@ public class UISkillSelect : UIListToggle<SkillDef>
 
 	protected override void OnToggleOn(SkillDef skill)
 	{
-		if (!Game.PlayerCharacter.Skills.Contains(skill))
-		{
-			Game.PlayerCharacter.Skills.Add(skill);
-		}
+		Game.PlayerCharacter.LearnSkill(skill);
 	}
 
 	protected override void OnToggleOff(SkillDef skill)
 	{
-		if (Game.PlayerCharacter.Skills.Contains(skill))
-		{
-			Game.PlayerCharacter.Skills.Remove(skill);
-		}
+		Game.PlayerCharacter.UnlearnSkill(skill);
 	}
 
 	protected override bool ItemIsToggled(int index)

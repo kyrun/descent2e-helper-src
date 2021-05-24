@@ -11,6 +11,7 @@ public class UICombatRoller : MonoBehaviour
 	[SerializeField] TextMeshProUGUI _textAttacker = default;
 	[SerializeField] TextMeshProUGUI _textDefender = default;
 	[SerializeField] TextMeshProUGUI _textPierce = default;
+	[SerializeField] TextMeshProUGUI _textRangeModifier = default;
 	[SerializeField] TextMeshProUGUI _textHeart = default;
 	[SerializeField] TextMeshProUGUI _textDefense = default;
 	[SerializeField] TextMeshProUGUI _textSurge = default;
@@ -32,6 +33,7 @@ public class UICombatRoller : MonoBehaviour
 			img.gameObject.SetActive(false);
 		}
 		UpdatePierce(null);
+		UpdateRangeModifier(null);
 		_textAttacker.text = "Attacker";
 		_textDefender.text = "Defender";
 		ResetResultsText();
@@ -39,7 +41,7 @@ public class UICombatRoller : MonoBehaviour
 
 	void ResetResultsText()
 	{
-		_textPierce.text = _textDefense.text = _textHeart.text = _textSurge.text = _textRange.text = _textDamage.text = "--";
+		_textPierce.text = _textRangeModifier.text = _textDefense.text = _textHeart.text = _textSurge.text = _textRange.text = _textDamage.text = "--";
 	}
 
 	void UpdateResult(RollResult result, IAttacker attacker)
@@ -47,7 +49,7 @@ public class UICombatRoller : MonoBehaviour
 		_textHeart.text = result.heart.ToString();
 		_textDefense.text = result.defense.ToString();
 		_textSurge.text = result.surge.ToString();
-		_textRange.text = attacker.AttackType == AttackType.Ranged ? result.range.ToString() : "N/A";
+		_textRange.text = (attacker.AttackType == AttackType.Ranged) ? result.range.ToString() : "N/A";
 		var defense = result.defense - attacker.Pierce;
 		defense = Mathf.Max(0, defense);
 		_textDamage.text = (result.heart - defense).ToString();
@@ -58,6 +60,13 @@ public class UICombatRoller : MonoBehaviour
 		int pierce = attacker != null ? attacker.Pierce : 0;
 		_textPierce.transform.parent.gameObject.SetActive(pierce > 0);
 		_textPierce.text = pierce.ToString();
+	}
+
+	void UpdateRangeModifier(IAttacker attacker)
+	{
+		int rangeModifier = attacker != null ? attacker.RangeModifier : 0;
+		_textRangeModifier.transform.parent.gameObject.SetActive(rangeModifier > 0);
+		_textRangeModifier.text = "+" + rangeModifier;
 	}
 
 	public void Setup(IAttacker attacker, IDefender defender)
@@ -98,6 +107,7 @@ public class UICombatRoller : MonoBehaviour
 		var result = Roller.CombatRoll(_attacker, _defender, out List<int> rolledFaceIndexAttack, out List<int> rolledFaceIndexDefense);
 		ShowCombatRoll(_attacker.AttackDice, _defender.DefenseDice, rolledFaceIndexAttack, rolledFaceIndexDefense);
 		UpdatePierce(_attacker);
+		UpdateRangeModifier(_attacker);
 
 		if (_coroutine != null) StopCoroutine(_coroutine);
 		_coroutine = StartCoroutine(WaitAndUpdateResult(result, _attacker));
@@ -113,20 +123,5 @@ public class UICombatRoller : MonoBehaviour
 		UpdateResult(result, _attacker);
 
 		_coroutine = null;
-	}
-
-
-	// DEBUG -----
-
-	void Start()
-	{
-	}
-
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Return))
-		{
-			Roll();
-		}
 	}
 }

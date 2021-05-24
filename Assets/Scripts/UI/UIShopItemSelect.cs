@@ -27,7 +27,7 @@ public class UIShopItemSelect : UIListToggle<ItemDef>
 
 	protected override void OnToggleOn(ItemDef item)
 	{
-		if (!Game.PlayerCharacter.Items.ContainsKey(item))
+		if (!Game.PlayerCharacter.HasItem(item))
 		{
 			Game.PlayerCharacter.AddItem(item);
 		}
@@ -35,7 +35,7 @@ public class UIShopItemSelect : UIListToggle<ItemDef>
 
 	protected override void OnToggleOff(ItemDef item)
 	{
-		if (Game.PlayerCharacter.Items.ContainsKey(item))
+		if (Game.PlayerCharacter.HasItem(item))
 		{
 			Game.PlayerCharacter.RemoveItem(item);
 		}
@@ -43,6 +43,6 @@ public class UIShopItemSelect : UIListToggle<ItemDef>
 
 	protected override bool ItemIsToggled(int index)
 	{
-		return Game.PlayerCharacter.Items.ContainsKey(_items[index]);
+		return Game.PlayerCharacter.HasItem(_items[index]);
 	}
 }

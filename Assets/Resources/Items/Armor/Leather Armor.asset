@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc0bd84a016ad440ac93bf14140457f, type: 3}
   m_Name: Leather Armor
   m_EditorClassIdentifier: 
-  _trait: 0a000000
-  _bonusHealth: 1
+  _traits: 0a000000
+  _modifiers:
+  - {fileID: 11400000, guid: 17e6df77e0f72ab498ebdb6eb13a65fb, type: 2}
   _defenseDice:
   - {fileID: 11400000, guid: 980b3b7f8ed1fbe46b00f5efe2d0988d, type: 2}

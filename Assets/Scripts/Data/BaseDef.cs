@@ -17,6 +17,6 @@ public abstract class BaseDef<T> : ScriptableObject where T : BaseDef<T>
 
 	void OnEnable()
 	{
-		_dictDef.Add(name, this as T);
+		if (!_dictDef.ContainsKey(name)) _dictDef.Add(name, this as T);
 	}
 }

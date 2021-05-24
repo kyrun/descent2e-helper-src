@@ -4,9 +4,11 @@ using UnityEngine;
 
 public abstract class ItemDef : BaseDef<ItemDef>
 {
-	[SerializeField] List<ItemTrait> _trait = default;
+	[SerializeField] List<ItemTrait> _traits = default;
+	[SerializeField] List<CharacterModifierDef> _modifiers = default;
 
-	public IEnumerable<ItemTrait> Traits { get { return _trait; } }
+	public IEnumerable<ItemTrait> Traits { get { return _traits; } }
+	public IEnumerable<CharacterModifierDef> Modifiers { get { return _modifiers; } }
 	public abstract WornType Worn { get; }
 
 	public enum ItemTrait

@@ -35,15 +35,21 @@ public class UIItemToggle : MonoBehaviour
 			return;
 		}
 
-		Game.PlayerCharacter.Items[_item] = isOn;
+		if (isOn)
+		{
+			Game.PlayerCharacter.EquipItem(_item);
+		}
+		else
+		{
+			Game.PlayerCharacter.UnequipItem(_item);
+		}
 
 		_ui.RefreshToggles(_item);
 	}
 
 	public void RefreshInteractableState()
 	{
-		bool isEquipped;
-		Game.PlayerCharacter.Items.TryGetValue(_item, out isEquipped);
+		bool isEquipped = Game.PlayerCharacter.IsEquipped(_item);
 
 		_toggle.interactable = _item != null && (isEquipped || Game.PlayerCharacter.CanEquip(_item));
 	}

@@ -4,6 +4,7 @@ public interface IAttacker
 {
 	string name { get; }
 	int Pierce { get; }
+	int RangeModifier { get; }
 	List<AttackDieDef> AttackDice { get; }
 	AttackType AttackType { get; }
 }

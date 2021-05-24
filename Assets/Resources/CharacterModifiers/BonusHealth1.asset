@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c3f4aacc9d4560429f1b15621c26265, type: 3}
-  m_Name: Iron Shield
+  m_Script: {fileID: 11500000, guid: 4317ed432eedadc4e80021aa2905e89b, type: 3}
+  m_Name: BonusHealth1
   m_EditorClassIdentifier: 
-  _traits: 0f000000
-  _modifiers: []
-  _defenseDice: []
+  _modifier: 1
+  _amount: 1

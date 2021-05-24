@@ -17,9 +17,9 @@ public class UICheckExtraEquipment : MonoBehaviour
 		if (Game.PlayerCharacter != null)
 		{
 			bool hasUnequipped = false;
-			foreach (var kvp in Game.PlayerCharacter.Items)
+			foreach (var item in Game.PlayerCharacter.Items)
 			{
-				if (!kvp.Value)
+				if (!Game.PlayerCharacter.IsEquipped(item))
 				{
 					hasUnequipped = true;
 					break;
@@ -27,6 +27,6 @@ public class UICheckExtraEquipment : MonoBehaviour
 			}
 			if (!hasUnequipped) _btn.Next();
 		}
-		
+
 	}
 }

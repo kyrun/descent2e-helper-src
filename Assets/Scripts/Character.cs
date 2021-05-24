@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 public class Character : IAttacker, IDefender
 {
 	public int Act { get; private set; } = 1;
-	public int NumPlayers { get; private set; } = 1;
+	public int NumPlayers { get; private set; } = 4;
 
 	List<AttackDieDef> _listAttackDice = new List<AttackDieDef>();
 	List<DefenseDieDef> _listDefenseDice = new List<DefenseDieDef>();
+	List<SkillDef> _listSkills = new List<SkillDef>();
+	Dictionary<ItemDef, bool> _dictItems = new Dictionary<ItemDef, bool>();
 
 	public string name { get { return Definition.name; } }
 	public CharacterDef Definition { get; private set; }
@@ -17,54 +20,34 @@ public class Character : IAttacker, IDefender
 	public int Damage { get; private set; }
 	public int Fatigue { get; private set; }
 
-	public Dictionary<ItemDef, bool> Items = new Dictionary<ItemDef, bool>();
-	public List<SkillDef> Skills = new List<SkillDef>();
+	public Dictionary<ItemDef, bool>.KeyCollection Items { get { return _dictItems.Keys; } }
+	public ReadOnlyCollection<SkillDef> Skills { get { return _listSkills.AsReadOnly(); } }
 
 	public List<Condition> Conditions = new List<Condition>();
+
+	Dictionary<Modifier, int> _dictModifier = new Dictionary<Modifier, int>();
 
 	public int Speed
 	{
 		get
 		{
-			var speed = Definition.Speed;
-			foreach (var kvp in Items)
-			{
-				if (!kvp.Value) continue;
-
-				var item = kvp.Key;
-				// TODO: get from items
-			}
-			return speed;
+			return Definition.Speed + _dictModifier[Modifier.Speed];
 		}
 	}
+
 	public int Health
 	{
 		get
 		{
-			var health = Definition.Health;
-			foreach (var kvp in Items)
-			{
-				if (!kvp.Value) continue;
-
-				var item = kvp.Key;
-				// TODO: get from items
-			}
-			return health;
+			return Definition.Health + _dictModifier[Modifier.Health];
 		}
 	}
+
 	public int Stamina
 	{
 		get
 		{
-			var stamina = Definition.Stamina;
-			foreach (var kvp in Items)
-			{
-				if (!kvp.Value) continue;
-
-				var item = kvp.Key;
-				// TODO: get from items
-			}
-			return stamina;
+			return Definition.Stamina + _dictModifier[Modifier.Stamina];
 		}
 	}
 
@@ -72,15 +55,15 @@ public class Character : IAttacker, IDefender
 	{
 		get
 		{
-			foreach (var kvp in Items)
+			foreach (var kvp in _dictItems)
 			{
 				if (!kvp.Value) continue;
 
 				var item = kvp.Key;
-				if (item is IAttacker)
+				if (item is ItemWeaponDef)
 				{
-					var attackItem = (IAttacker)item;
-					return attackItem.AttackType;
+					var weapon = (ItemWeaponDef)item; // TODO: handle multiple weapons. currently only uses the first
+					return weapon.AttackType;
 				}
 			}
 			return AttackType.Melee;
@@ -92,20 +75,20 @@ public class Character : IAttacker, IDefender
 		get
 		{
 			_listAttackDice.Clear();
-			foreach (var kvp in Items)
+			foreach (var kvp in _dictItems)
 			{
 				if (!kvp.Value) continue;
 
 				var item = kvp.Key;
-				if (item is IAttacker)
+				if (item is ItemWeaponDef)
 				{
-					var attackItem = (IAttacker)item;
-					_listAttackDice.AddRange(attackItem.AttackDice);
+					var weapon = (ItemWeaponDef)item;
+					_listAttackDice.AddRange(weapon.AttackDice);
 				}
 			}
 			if (_listAttackDice.Count == 0) // bare handed
 			{
-				_listAttackDice.Add(Resources.Load("Dice/Attack/Blue") as AttackDieDef); // HARDCODED
+				_listAttackDice.Add(Resources.Load("Dice/Attack/Blue") as AttackDieDef); // HARDCODED!
 			}
 			return _listAttackDice;
 		}
@@ -116,7 +99,7 @@ public class Character : IAttacker, IDefender
 		get
 		{
 			_listDefenseDice.Clear();
-			foreach (var kvp in Items)
+			foreach (var kvp in _dictItems)
 			{
 				if (!kvp.Value) continue;
 
@@ -136,48 +119,111 @@ public class Character : IAttacker, IDefender
 	{
 		get
 		{
-			int pierce = 0;
-			foreach (var kvp in Items)
-			{
-				if (!kvp.Value) continue;
-
-				var item = kvp.Key;
-				if (item is ItemWeaponDef)
-				{
-					var weapon = (ItemWeaponDef)item;
-					pierce += weapon.Pierce;
-				}
-			}
-			return pierce;
+			return _dictModifier[Modifier.Pierce];
 		}
 	}
 
-	public Character(CharacterDef definition, ClassDef classDef)
+	public int RangeModifier
 	{
-		Definition = definition;
-		Class = classDef;
-		foreach (var item in Class.StartingItems)
+		get
 		{
-			Items.Add(item, true);
-		}
-		foreach (var skill in Class.StartingSkills)
-		{
-			Skills.Add(skill);
+			return _dictModifier[Modifier.Range];
 		}
 	}
 
+	#region Skills
+	public void LearnSkill(SkillDef skillDef)
+	{
+		if (!_listSkills.Contains(skillDef))
+		{
+			_listSkills.Add(skillDef);
+			foreach (var modifier in skillDef.Modifiers)
+			{
+				modifier.OnActivate(this);
+			}
+		}
+	}
+
+	public void UnlearnSkill(SkillDef skillDef)
+	{
+		if (_listSkills.Contains(skillDef))
+		{
+			_listSkills.Remove(skillDef);
+			foreach (var modifier in skillDef.Modifiers)
+			{
+				modifier.OnDeactivate(this);
+			}
+		}
+	}
+	#endregion
+
+	#region Items
 	const int ALLOWED_HANDS = 2;
 	const int TOTAL_ALLOWED_OTHER = 2;
 
 	public void AddItem(ItemDef item)
 	{
-		bool equip = CanEquip(item);
-		Items.Add(item, equip);
+		_dictItems.Add(item, false);
+		if (CanEquip(item))
+		{
+			EquipItem(item);
+		}
 	}
 
 	public void RemoveItem(ItemDef item)
 	{
-		Items.Remove(item);
+		if (_dictItems[item])
+		{
+			UnequipItem(item);
+		}
+		_dictItems.Remove(item);
+	}
+
+	public void EquipItem(ItemDef itemDef)
+	{
+		if (_dictItems.TryGetValue(itemDef, out bool isEquipped))
+		{
+			if (!isEquipped)
+			{
+				_dictItems[itemDef] = true;
+				foreach (var modifier in itemDef.Modifiers)
+				{
+					modifier.OnActivate(this);
+				}
+			}
+		}
+		else Debug.LogWarning("No item " + itemDef.name + "!");
+	}
+
+	public void UnequipItem(ItemDef itemDef)
+	{
+		if (_dictItems.TryGetValue(itemDef, out bool isEquipped))
+		{
+			if (isEquipped)
+			{
+				_dictItems[itemDef] = false;
+				foreach (var modifier in itemDef.Modifiers)
+				{
+					modifier.OnDeactivate(this);
+				}
+			}
+		}
+		else Debug.LogWarning("No item " + itemDef.name + "!");
+	}
+
+	public bool HasItem(ItemDef itemDef)
+	{
+		return _dictItems.ContainsKey(itemDef);
+	}
+
+	public bool IsEquipped(ItemDef itemDef)
+	{
+		if (_dictItems.TryGetValue(itemDef, out bool isEquipped))
+		{
+			return isEquipped;
+		}
+		else Debug.LogWarning("No item " + itemDef.name + "!");
+		return false;
 	}
 
 	public bool CanEquip(ItemDef item)
@@ -188,7 +234,7 @@ public class Character : IAttacker, IDefender
 			case WornType.Hand:
 				int handCount = 0;
 
-				foreach (var kvp in Items)
+				foreach (var kvp in _dictItems)
 				{
 					if (!kvp.Value) continue;
 
@@ -206,7 +252,7 @@ public class Character : IAttacker, IDefender
 				break;
 			case WornType.Armor:
 				equip = true;
-				foreach (var kvp in Items)
+				foreach (var kvp in _dictItems)
 				{
 					if (!kvp.Value) continue;
 
@@ -220,7 +266,7 @@ public class Character : IAttacker, IDefender
 				break;
 			case WornType.Other:
 				int otherCount = 0;
-				foreach (var kvp in Items)
+				foreach (var kvp in _dictItems)
 				{
 					if (!kvp.Value) continue;
 
@@ -241,6 +287,7 @@ public class Character : IAttacker, IDefender
 
 		return equip;
 	}
+#endregion
 
 	public void IncrementDamage()
 	{
@@ -303,6 +350,28 @@ public class Character : IAttacker, IDefender
 		}
 	}
 
+	public void ModifyModifier(Modifier modifier, int amount)
+	{
+		_dictModifier[modifier] += amount;
+	}
+
+	// CONSTRUCTORS
+
+	public Character(CharacterDef definition, ClassDef classDef)
+	{
+		Init();
+		Definition = definition;
+		Class = classDef;
+		foreach (var item in Class.StartingItems)
+		{
+			_dictItems.Add(item, true);
+		}
+		foreach (var skill in Class.StartingSkills)
+		{
+			_listSkills.Add(skill);
+		}
+	}
+
 	const char DELIMITER = '|';
 
 	public Character(string saveStr)
@@ -331,6 +400,8 @@ public class Character : IAttacker, IDefender
 			return;
 		}
 
+		Init();
+
 		++i;
 		Definition = CharacterDef.Get(str[i]);
 
@@ -349,7 +420,11 @@ public class Character : IAttacker, IDefender
 		foreach (var itemName in splitNames)
 		{
 			var item = ItemDef.Get(itemName);
-			if (item != null) Items.Add(item, true);
+			if (item != null)
+			{
+				AddItem(item);
+				EquipItem(item); // unnecessary, but just in case
+			}
 		}
 
 		// Unequipped
@@ -358,7 +433,11 @@ public class Character : IAttacker, IDefender
 		foreach (var itemName in splitNames)
 		{
 			var item = ItemDef.Get(itemName);
-			if (item != null) Items.Add(item, false);
+			if (item != null)
+			{
+				AddItem(item);
+				UnequipItem(item); // unnecessary, but just in case
+			}
 		}
 
 		// Skills
@@ -367,7 +446,7 @@ public class Character : IAttacker, IDefender
 		foreach (var skillName in splitNames)
 		{
 			var skill = SkillDef.Get(skillName);
-			if (skill != null) Skills.Add(skill);
+			if (skill != null) LearnSkill(skill);
 		}
 
 		// Conditions
@@ -379,6 +458,14 @@ public class Character : IAttacker, IDefender
 			{
 				Conditions.Add(condition);
 			}
+		}
+	}
+
+	void Init()
+	{
+		foreach (Modifier m in System.Enum.GetValues(typeof(Modifier)))
+		{
+			_dictModifier.Add(m, 0);
 		}
 	}
 
@@ -394,7 +481,7 @@ public class Character : IAttacker, IDefender
 			Fatigue + "\n";
 
 		// Equipped
-		foreach (var kvp in Items)
+		foreach (var kvp in _dictItems)
 		{
 			if (kvp.Value)
 			{
@@ -405,7 +492,7 @@ public class Character : IAttacker, IDefender
 		saveStr += "\n";
 
 		// Unequipped
-		foreach (var kvp in Items)
+		foreach (var kvp in _dictItems)
 		{
 			if (!kvp.Value)
 			{
@@ -416,7 +503,7 @@ public class Character : IAttacker, IDefender
 		saveStr += "\n";
 
 		// Skills
-		foreach (var skill in Skills)
+		foreach (var skill in _listSkills)
 		{
 			saveStr += skill.name + DELIMITER;
 		}

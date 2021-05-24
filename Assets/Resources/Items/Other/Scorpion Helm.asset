@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29721cb68e7bcf40a4d9c1dff8dd095, type: 3}
   m_Name: Scorpion Helm
   m_EditorClassIdentifier: 
-  _trait: 09000000
+  _traits: 09000000
+  _modifiers:
+  - {fileID: 11400000, guid: 5e325e12282f87c4b84b6fe4b18b716e, type: 2}

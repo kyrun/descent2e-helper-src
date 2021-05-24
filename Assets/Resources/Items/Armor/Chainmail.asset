@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc0bd84a016ad440ac93bf14140457f, type: 3}
   m_Name: Chainmail
   m_EditorClassIdentifier: 
-  _trait: 08000000
-  _bonusHealth: 0
+  _traits: 08000000
+  _modifiers: []
   _defenseDice:
   - {fileID: 11400000, guid: 07dba250190597f45b51d4f68472cb98, type: 2}
