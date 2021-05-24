@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb6fe897dcc09043844b0a0914154c1, type: 3}
+  m_Name: Runemaster
+  m_EditorClassIdentifier: 
+  _archetype: 2
+  _startingItem:
+  - {fileID: 11400000, guid: f94d6b56ddfa8c94f9bf1adaa07ab6e3, type: 2}
+  _startingSkill:
+  - {fileID: 11400000, guid: 5c2e66b09e66d4148a2b3a1fcb588884, type: 2}
+  _Cost1Skill:
+  - {fileID: 11400000, guid: 663436e2e0f6ca84f82907d5f2749e1e, type: 2}
+  - {fileID: 11400000, guid: d33873f54f901fc48bd460ab4b4eef6f, type: 2}
+  - {fileID: 11400000, guid: 069bf970730663441bdfc99a0acc93b3, type: 2}
+  _Cost2Skill:
+  - {fileID: 11400000, guid: 6faaf022c7a96ff44aae132008756751, type: 2}
+  - {fileID: 11400000, guid: 673b842210af1a342a35437c849a4500, type: 2}
+  - {fileID: 11400000, guid: 914d854f75963ca44905c7097ce9b2ab, type: 2}
+  _Cost3Skill:
+  - {fileID: 11400000, guid: 21f83f4aa159a554bbd84aeabd5acd36, type: 2}
+  - {fileID: 11400000, guid: 7fa2ba22c4e386e4e995cdc1cec20b39, type: 2}

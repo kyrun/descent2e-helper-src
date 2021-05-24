@@ -6,7 +6,7 @@ public class SaveOnClick : MonoBehaviour
 {
     void Update()
     {
-        if (Game.IsReady && Input.GetKeyDown(KeyCode.Mouse0))
+        if (Game.IsReady && Game.SaveName != "" && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Util.SaveCharacter();
         }

@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _archetype: 0
   _startingItem:
-  - {fileID: 11400000, guid: c1ea09b30be2d8a40b7f33d9e495305d, type: 2}
+  - {fileID: 11400000, guid: ae786bd7cb3f39d4d9bbb78266b163fe, type: 2}
   _startingSkill:
-  - {fileID: 11400000, guid: fbb3a14e15e53c3478e0b6a4d07f2903, type: 2}
+  - {fileID: 11400000, guid: f57547f0fd00cff4db620490be8c9714, type: 2}
   _Cost1Skill:
-  - {fileID: 11400000, guid: 654a273674a7646439e3b953f67b80c4, type: 2}
-  - {fileID: 11400000, guid: 3c2229d18d5139343be91acdc98d1e39, type: 2}
-  - {fileID: 11400000, guid: f044f69639e08094aa485a5be3a6d683, type: 2}
+  - {fileID: 11400000, guid: bae7a320b2ef5284ba19aa4229c20a79, type: 2}
+  - {fileID: 11400000, guid: fd5b1f612a0d8eb4e9d9520cfcb28c6a, type: 2}
+  - {fileID: 11400000, guid: 71cd82c422dfc86488b0bc7710a1dc7c, type: 2}
   _Cost2Skill:
-  - {fileID: 11400000, guid: 15c3a1bba79bc6641bbaa88a16816eeb, type: 2}
-  - {fileID: 11400000, guid: a70b1e76f3674e04790c47770f200b4c, type: 2}
-  - {fileID: 11400000, guid: 552eb8a605272b84c9061c453b6add5a, type: 2}
+  - {fileID: 11400000, guid: d137419a42219064d9f3790c5cfd6e73, type: 2}
+  - {fileID: 11400000, guid: 9a6a349d2d67d1c45b9c28093babc294, type: 2}
+  - {fileID: 11400000, guid: e87932aaad87f8545bb9b72790402327, type: 2}
   _Cost3Skill:
-  - {fileID: 11400000, guid: 5c4158a2af1e91a43943c02928b1456c, type: 2}
-  - {fileID: 11400000, guid: 2435edc7a027aac429797b09643b6873, type: 2}
+  - {fileID: 11400000, guid: 253f96032a8d16643a59fad87fad0b58, type: 2}
+  - {fileID: 11400000, guid: 14476bd593dff7342b2b92b60fb0519b, type: 2}

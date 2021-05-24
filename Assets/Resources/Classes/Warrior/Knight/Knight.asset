@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb6fe897dcc09043844b0a0914154c1, type: 3}
+  m_Name: Knight
+  m_EditorClassIdentifier: 
+  _archetype: 0
+  _startingItem:
+  - {fileID: 11400000, guid: 785281b3914cc744ea522778a83b035e, type: 2}
+  - {fileID: 11400000, guid: cc6f9f0b88c06e04caab1bdbef9aeb45, type: 2}
+  _startingSkill:
+  - {fileID: 11400000, guid: 804d1293a0ccf0d4ea585f12ce134573, type: 2}
+  _Cost1Skill:
+  - {fileID: 11400000, guid: 31e616c906b09a140848a8c887f52f43, type: 2}
+  - {fileID: 11400000, guid: dc96fb053886cdf4e8a471b7262952ff, type: 2}
+  - {fileID: 11400000, guid: ef93951923bea5641bdb2ccd8988707a, type: 2}
+  _Cost2Skill:
+  - {fileID: 11400000, guid: 5ee68ae467ac9af49b4732581edc6795, type: 2}
+  - {fileID: 11400000, guid: f7c3f2f31e09d074a87bf2b7b751b1c9, type: 2}
+  - {fileID: 11400000, guid: 77daf12e0b19e2247af50ce3828defbd, type: 2}
+  _Cost3Skill:
+  - {fileID: 11400000, guid: ab00e6511f9722b4197bf0189447162f, type: 2}
+  - {fileID: 11400000, guid: ce05349eaa957054ea44fa7c47e2088d, type: 2}

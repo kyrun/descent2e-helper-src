@@ -287,6 +287,21 @@ public class Character : IAttacker, IDefender
 
 		return equip;
 	}
+
+	public ItemWeaponDef GetEquippedWeapon()
+	{
+		foreach (var kvp in _dictItems)
+		{
+			if (!kvp.Value) continue;
+
+			var item = kvp.Key;
+			if (item is ItemWeaponDef)
+			{
+				return (ItemWeaponDef)item;
+			}
+		}
+		return null;
+	}
 #endregion
 
 	public void IncrementDamage()

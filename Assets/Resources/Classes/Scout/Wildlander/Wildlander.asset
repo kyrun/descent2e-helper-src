@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb6fe897dcc09043844b0a0914154c1, type: 3}
+  m_Name: Wildlander
+  m_EditorClassIdentifier: 
+  _archetype: 3
+  _startingItem:
+  - {fileID: 11400000, guid: 0ba3a260491f7204f81c251750fc4e44, type: 2}
+  _startingSkill:
+  - {fileID: 11400000, guid: 7a17c205e75ef36458ac3c71cc0e5f5b, type: 2}
+  _Cost1Skill:
+  - {fileID: 11400000, guid: 014caa1901e1f2d478408995611a4b4f, type: 2}
+  - {fileID: 11400000, guid: 0dc4fbb4fb4e9794dae07c5fcee2c6b5, type: 2}
+  - {fileID: 11400000, guid: bea7abc68d6ee3a43a18a95c7ee7cfd0, type: 2}
+  _Cost2Skill:
+  - {fileID: 11400000, guid: 3eb80f2fe55284545a9fb49188e623c9, type: 2}
+  - {fileID: 11400000, guid: d5455f9d84867534382af7ba9d6b1bd2, type: 2}
+  - {fileID: 11400000, guid: 9ab7591f555798f4da767c0cc175d7c0, type: 2}
+  _Cost3Skill:
+  - {fileID: 11400000, guid: 44acf3ac96fde474ab1420379838adff, type: 2}
+  - {fileID: 11400000, guid: dde9195bb4aa482478d5207cc5c65de6, type: 2}

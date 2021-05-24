@@ -73,6 +73,11 @@ public class UICombatRoller : MonoBehaviour
 	{
 		gameObject.SetActive(true);
 		_textAttacker.text = "Attacker: " + attacker.name;
+		if (attacker is Character)
+		{
+			var weapon = ((Character)attacker).GetEquippedWeapon();
+			_textAttacker.text += " (" + (weapon != null ? weapon.name : "Barehanded") + ")";
+		}
 		_textDefender.text = "Defender: " + defender.name;
 		_attacker = attacker;
 		_defender = defender;

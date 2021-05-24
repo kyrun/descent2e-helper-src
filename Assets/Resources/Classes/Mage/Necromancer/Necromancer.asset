@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb6fe897dcc09043844b0a0914154c1, type: 3}
+  m_Name: Necromancer
+  m_EditorClassIdentifier: 
+  _archetype: 2
+  _startingItem:
+  - {fileID: 11400000, guid: 2b415d922c4764740b56e7695eaaeb78, type: 2}
+  _startingSkill:
+  - {fileID: 11400000, guid: fabe0f61a356cd649bcb9aa6b2ab31a2, type: 2}
+  _Cost1Skill:
+  - {fileID: 11400000, guid: 79df23e0a2797ef47bff48c7794af4b8, type: 2}
+  - {fileID: 11400000, guid: 75a11df62f3049e40baf9aa414b8a28a, type: 2}
+  - {fileID: 11400000, guid: 467e232df73918f4bb7e364ce9944851, type: 2}
+  _Cost2Skill:
+  - {fileID: 11400000, guid: ca8dca0c11ded9b428670238e42e5afd, type: 2}
+  - {fileID: 11400000, guid: 70a9f8bba5e7eac4f95b1ff88385681b, type: 2}
+  - {fileID: 11400000, guid: e715962993942c845906fce39cc1cc2b, type: 2}
+  _Cost3Skill:
+  - {fileID: 11400000, guid: 92f38a498377c9a42a0747361d50e32f, type: 2}
+  - {fileID: 11400000, guid: d4cc0f506a11b4145a6e4d9a79eff7a8, type: 2}
