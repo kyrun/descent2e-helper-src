@@ -30,7 +30,8 @@ public static class Roller
 			rolledFaceIndexDefense.Add(roll);
 		}
 		result.defense = Mathf.Max(0, result.defense);
-		result.range += attacker.RangeModifier;
+		result.pierce = attacker.Pierce;
+		result.bonusRange = attacker.RangeModifier;
 
 		return result;
 	}
@@ -42,6 +43,8 @@ public class RollResult
 	public int defense = 0;
 	public int surge = 0;
 	public int range = 0;
+	public int pierce = 0;
+	public int bonusRange = 0;
 	public bool miss = false;
 
 	public override string ToString()

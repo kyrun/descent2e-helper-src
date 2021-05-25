@@ -44,13 +44,25 @@ public class UICombatRoller : MonoBehaviour
 		_textPierce.text = _textRangeModifier.text = _textDefense.text = _textHeart.text = _textSurge.text = _textRange.text = _textDamage.text = "--";
 	}
 
-	void UpdateResult(RollResult result, IAttacker attacker)
+	void UpdateResult(RollResult result, AttackType attackType)
 	{
 		_textHeart.text = result.heart.ToString();
 		_textDefense.text = result.defense.ToString();
+		if (result.pierce > 0) _textDefense.text += " (-" + result.pierce + ")";
 		_textSurge.text = result.surge.ToString();
-		_textRange.text = (attacker.AttackType == AttackType.Ranged) ? result.range.ToString() : "N/A";
-		var defense = result.defense - attacker.Pierce;
+		if (attackType == AttackType.Ranged)
+		{
+			_textRange.text = result.range.ToString();
+			if (result.bonusRange > 0)
+			{
+				_textRange.text += " (+" + result.bonusRange + ")";
+			}
+		}
+		else
+		{
+			_textRange.text = "--";
+		}
+		var defense = result.defense - result.pierce;
 		defense = Mathf.Max(0, defense);
 		_textDamage.text = (result.heart - defense).ToString();
 	}
@@ -65,13 +77,14 @@ public class UICombatRoller : MonoBehaviour
 	void UpdateRangeModifier(IAttacker attacker)
 	{
 		int rangeModifier = attacker != null ? attacker.RangeModifier : 0;
-		_textRangeModifier.transform.parent.gameObject.SetActive(rangeModifier > 0);
+		_textRangeModifier.transform.parent.gameObject.SetActive(attacker.AttackType == AttackType.Ranged && rangeModifier > 0);
 		_textRangeModifier.text = "+" + rangeModifier;
 	}
 
 	public void Setup(IAttacker attacker, IDefender defender)
 	{
 		gameObject.SetActive(true);
+		ResetResultsText();
 		_textAttacker.text = "Attacker: " + attacker.name;
 		if (attacker is Character)
 		{
@@ -81,6 +94,8 @@ public class UICombatRoller : MonoBehaviour
 		_textDefender.text = "Defender: " + defender.name;
 		_attacker = attacker;
 		_defender = defender;
+		UpdatePierce(_attacker);
+		UpdateRangeModifier(_attacker);
 		_textRange.transform.parent.gameObject.SetActive(attacker.AttackType == AttackType.Ranged);
 	}
 
@@ -125,7 +140,7 @@ public class UICombatRoller : MonoBehaviour
 
 		yield return DieAnimator.WaitForUntilAllDiceFinishRolling(listDice);
 
-		UpdateResult(result, _attacker);
+		UpdateResult(result, _attacker.AttackType);
 
 		_coroutine = null;
 	}
