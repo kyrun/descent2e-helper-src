@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce97cac7fab51f44ea30471d96b03eb7, type: 3}
+  m_Name: Dawnblade
+  m_EditorClassIdentifier: 
+  _traits: 01000000
+  _modifiers: []
+  _attackType: 0
+  _handedness: 0
+  _attackDice:
+  - {fileID: 11400000, guid: ddb7af3ade8991e48ba07bcbcb0b0d7b, type: 2}
+  - {fileID: 11400000, guid: 215fbda86fc3cfa46ae83eb7436da4fd, type: 2}
+  - {fileID: 11400000, guid: cd5a2ec299beed7469f5e041019610ee, type: 2}

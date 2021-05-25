@@ -7,13 +7,21 @@ using TMPro;
 
 public abstract class UIListButton<T> : MonoBehaviour where T : ScriptableObject
 {
-	[SerializeField] protected List<T> _items = default;
 	[SerializeField] protected Button _defaultButton = default;
 
+	protected List<T> _items = new List<T>();
 	protected List<Button> _listButton = new List<Button>();
 
 	protected virtual void Awake()
 	{
+		T[] items = Resources.LoadAll<T>("");
+		foreach (var item in items)
+		{
+			_items.Add(item);
+		}
+
+		Sort(_items);
+
 		for (int i = 0; i < _items.Count; ++i)
 		{
 			var button = _defaultButton;
@@ -36,6 +44,8 @@ public abstract class UIListButton<T> : MonoBehaviour where T : ScriptableObject
 	}
 
 	protected abstract void OnButtonPress(T def);
+
+	protected abstract void Sort(List<T> list);
 
 	protected virtual string ItemName(T def)
 	{

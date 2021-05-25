@@ -2030,15 +2030,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4dcb687ccd0f24f9484a03deb89c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _items:
-  - {fileID: 11400000, guid: 964df70673046e44c84875c08f77d500, type: 2}
-  - {fileID: 11400000, guid: 66547b2a002f5f34dbbf2c0c38a19a92, type: 2}
-  - {fileID: 11400000, guid: 1e46f916203be6c4f805c8a57132c8d4, type: 2}
-  - {fileID: 11400000, guid: 3cc97be7c7de919428a93d4c51952321, type: 2}
-  - {fileID: 11400000, guid: b4734eb75cfd42d4baa2428e7d5346c2, type: 2}
-  - {fileID: 11400000, guid: 694d1afd462149a4897f85682f8e9b8a, type: 2}
-  - {fileID: 11400000, guid: 1a3cf89bec229af468f9f7b762cc1825, type: 2}
-  - {fileID: 11400000, guid: 29bd4fcac79ac2e4687300e06d2dca4b, type: 2}
   _defaultButton: {fileID: 1172688393}
   _classSelect: {fileID: 1894546777}
 --- !u!1 &1199449963
@@ -2537,54 +2528,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1463633336
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1463633338}
-  - component: {fileID: 1463633337}
-  m_Layer: 0
-  m_Name: Init Resource
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1463633337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1463633336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d98b0539d210104d88fe548adc82152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _subfolders:
-  - Items/Armor
-  - Items/OneHand
-  - Items/TwoHand
-  - Items/Other
---- !u!4 &1463633338
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1463633336}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1894546773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2763,15 +2706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d34f43859d9c5418dfdb7166a2ac62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _items:
-  - {fileID: 11400000, guid: 6a191fc3b6a7c3a478f607b958ea7e75, type: 2}
-  - {fileID: 11400000, guid: e8f95cd130b6ade4bbc80f040e5b1fc7, type: 2}
-  - {fileID: 11400000, guid: 85bafedb85db6d2448304e9f4dbc9718, type: 2}
-  - {fileID: 11400000, guid: 0dcaa1de73f0c2f45b68a22d0254cf5c, type: 2}
-  - {fileID: 11400000, guid: 6b220c8b603adbf42882085c442a2b55, type: 2}
-  - {fileID: 11400000, guid: 080f5310f4f519f4eb1d6787a8264784, type: 2}
-  - {fileID: 11400000, guid: 07b3b4b17ac46424a8ce42f64bfba891, type: 2}
-  - {fileID: 11400000, guid: c57b1fe149834674997a269194ffcba0, type: 2}
   _defaultButton: {fileID: 1894546775}
   _uiInputName: {fileID: 2110050763}
 --- !u!114 &1945973816 stripped

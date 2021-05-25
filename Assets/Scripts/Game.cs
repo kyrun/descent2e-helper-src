@@ -14,4 +14,16 @@ public static class Game
 	{
 		SceneManager.LoadScene("Main");
 	}
+
+	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+	static void Init()
+	{
+		Resources.LoadAll<CharacterDef>("");
+		Resources.LoadAll<ClassDef>("");
+		Resources.LoadAll<ItemDef>("");
+		Resources.LoadAll<SkillDef>("");
+		Resources.LoadAll<MonsterDef>("");
+		Resources.LoadAll<DieDef>("");
+		Resources.LoadAll<CharacterModifierDef>("");
+	}
 }

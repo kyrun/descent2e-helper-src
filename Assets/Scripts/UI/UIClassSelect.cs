@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,11 @@ public class UIClassSelect : UIListButton<ClassDef>
     protected override void OnButtonPress(ClassDef classDef)
     {
         _uiInputName.Setup(_characterDef, classDef);
+    }
+
+    protected override void Sort(List<ClassDef> list)
+    {
+        list.OrderBy(def => def.name); // TODO: sort by expansion
     }
 
     public void Setup(CharacterDef charDef)
