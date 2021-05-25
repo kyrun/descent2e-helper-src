@@ -10,18 +10,24 @@ public class SetCorrectPanelOnStart : MonoBehaviour
 
 	void OnEnable()
 	{
+		// Disable all first
 		foreach (Transform child in transform)
 		{
-			if (_toShowOverride != null)
+			child.gameObject.SetActive(false);
+		}
+
+		if (_toShowOverride != null)
+		{
+			_toShowOverride.gameObject.SetActive(true);
+			_toShowOverride = null;
+		}
+		else
+		{
+			foreach (Transform toShow in _toShow)
 			{
-				child.gameObject.SetActive(child == _toShowOverride);
-			}
-			else
-			{
-				child.gameObject.SetActive(_toShow.Contains(child));
+				toShow.gameObject.SetActive(true);
 			}
 		}
-		_toShowOverride = null;
 	}
 
 	public void OverrideToShow(Transform toShow)
