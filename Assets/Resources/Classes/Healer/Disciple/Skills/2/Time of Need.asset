@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Time of Need
   m_EditorClassIdentifier: 
   _xp: 2
-  _staminaCost: 2
+  _staminaCost: 0
   _isAction: 1
-  _isExhaustable: 1
+  _isExhaustable: 0
+  _modifiers: []

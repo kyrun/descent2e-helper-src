@@ -15,5 +15,5 @@ MonoBehaviour:
   _xp: 1
   _staminaCost: 2
   _isAction: 1
-  _isExhaustable: 0
+  _isExhaustable: 1
   _modifiers: []

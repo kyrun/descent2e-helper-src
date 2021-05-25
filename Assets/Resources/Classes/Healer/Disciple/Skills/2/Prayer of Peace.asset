@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Prayer of Peace
   m_EditorClassIdentifier: 
   _xp: 2
-  _staminaCost: 0
+  _staminaCost: 2
   _isAction: 1
-  _isExhaustable: 0
+  _isExhaustable: 1
+  _modifiers: []
