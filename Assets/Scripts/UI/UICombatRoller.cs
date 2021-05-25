@@ -77,7 +77,7 @@ public class UICombatRoller : MonoBehaviour
 	void UpdateRangeModifier(IAttacker attacker)
 	{
 		int rangeModifier = attacker != null ? attacker.RangeModifier : 0;
-		_textRangeModifier.transform.parent.gameObject.SetActive(attacker.AttackType == AttackType.Ranged && rangeModifier > 0);
+		_textRangeModifier.transform.parent.gameObject.SetActive(attacker != null && attacker.AttackType == AttackType.Ranged && rangeModifier > 0);
 		_textRangeModifier.text = "+" + rangeModifier;
 	}
 
