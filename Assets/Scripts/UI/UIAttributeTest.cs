@@ -32,13 +32,13 @@ public class UIAttributeTest : MonoBehaviour
 			if (_resultPass)
 			{
 				OnPassTest?.Invoke();
-				OnPassTest = null;
 			}
 			else
 			{
 				OnFailTest?.Invoke();
-				OnFailTest = null;
 			}
+			OnFailTest = null;
+			OnPassTest = null;
 		});
 	}
 

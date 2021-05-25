@@ -8,8 +8,7 @@ public class DebugStart : MonoBehaviour
 	{
 		if (Game.PlayerCharacter == null)
 		{
-			Game.PlayerCharacter = new Character(Resources.Load("Characters/Healer/Avric Albright") as CharacterDef,
-				Resources.Load("Classes/Healer/Disciple/Disciple") as ClassDef);
+			Game.PlayerCharacter = new Character(CharacterDef.Get("Grisban the Thirsty"), ClassDef.Get("Berserker"));
 
 			//Game.PlayerCharacter.AddItem(Resources.Load("Items/Armor/Leather Armor") as ItemArmorDef);
 			//Game.PlayerCharacter.AddItem(Resources.Load("Items/Armor/Chainmail") as ItemArmorDef);
