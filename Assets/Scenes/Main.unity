@@ -12415,8 +12415,6 @@ MonoBehaviour:
   - {fileID: 1177453993}
   - {fileID: 1694402078}
   - {fileID: 961386613}
-  - {fileID: 0}
-  - {fileID: 0}
   _defenseDice:
   - {fileID: 1923126397}
   - {fileID: 789420405}
@@ -12424,8 +12422,6 @@ MonoBehaviour:
   - {fileID: 1769185408}
   - {fileID: 794028491}
   - {fileID: 243465874}
-  - {fileID: 0}
-  - {fileID: 0}
   _textAttacker: {fileID: 971494465}
   _textDefender: {fileID: 1395076561}
   _textPierce: {fileID: 857054609}
