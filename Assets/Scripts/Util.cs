@@ -25,6 +25,11 @@ public static class Util
 
 	public static void SaveCharacter()
 	{
+		if (Game.SaveName == "")
+		{
+			Debug.LogWarning("Trying to save, but the save name is empty!");
+			return;
+		}
 		using (StreamWriter sw = new StreamWriter(GetSavePath() + Game.SaveName + SAVE_EXT))
 		{
 			sw.Write(Game.PlayerCharacter.ToSaveString());

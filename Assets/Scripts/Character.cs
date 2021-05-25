@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Character : IAttacker, IDefender
 {
-	public int Act { get; private set; } = 1;
+	public int Act { get; set; } = 1;
 	public int NumPlayers { get; private set; } = 4;
 
 	List<AttackDieDef> _listAttackDice = new List<AttackDieDef>();

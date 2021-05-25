@@ -8,6 +8,7 @@ using TMPro;
 public class UILoadGame : MonoBehaviour
 {
 	[SerializeField] protected Button _defaultButton = default;
+	[SerializeField] GameObject _overlay = default;
 
 	List<string> _saveGamePaths = new List<string>();
 	List<Button> _listButton = new List<Button>();
@@ -66,22 +67,26 @@ public class UILoadGame : MonoBehaviour
 		{
 			_listButton[i].gameObject.SetActive(false);
 		}
+	}
 
-		void SetButtonText(Button btn, string str)
+	void SetButtonText(Button btn, string str)
+	{
+		btn.name = "Button " + str;
+		btn.GetComponentInChildren<TextMeshProUGUI>(true).text = str;
+	}
+
+	void OnButtonPress(string saveGamePath)
+	{
+		_overlay.SetActive(true);
+
+		using (StreamReader sr = File.OpenText(saveGamePath))
 		{
-			btn.name = "Button " + str;
-			btn.GetComponentInChildren<TextMeshProUGUI>(true).text = str;
+			var saveString = sr.ReadToEnd();
+
+			Game.PlayerCharacter = new Character(saveString);
+			Game.SaveName = Path.GetFileNameWithoutExtension(saveGamePath);
 		}
 
-		void OnButtonPress(string saveGamePath)
-		{
-			using (StreamReader sr = new StreamReader(saveGamePath))
-			{
-				Game.PlayerCharacter = new Character(sr.ReadToEnd());
-				Game.SaveName = Path.GetFileNameWithoutExtension(saveGamePath);
-
-				Game.GoToMainScene();
-			}
-		}
+		Game.GoToMainScene();
 	}
 }
