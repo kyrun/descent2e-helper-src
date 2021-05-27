@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Trueshot
   m_EditorClassIdentifier: 
   _traits: 04000000
-  _modifiers:
-  - {fileID: 11400000, guid: cae5ce07cff7b2f4a95cf232609ad3b5, type: 2}
+  _modifiers: []
+  _pierce: 0
+  _rangeModifier: 3
   _attackType: 1
   _handedness: 1
   _attackDice:

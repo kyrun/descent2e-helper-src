@@ -6,6 +6,7 @@ using TMPro;
 
 public class UICombatRoller : MonoBehaviour
 {
+	[SerializeField] ModifierAttackOptionDef _unarmedCombatOption = default;
 	[SerializeField] List<DieAnimator> _attackDice = default;
 	[SerializeField] List<DieAnimator> _defenseDice = default;
 	[SerializeField] TextMeshProUGUI _textAttacker = default;
@@ -85,18 +86,34 @@ public class UICombatRoller : MonoBehaviour
 	{
 		gameObject.SetActive(true);
 		ResetResultsText();
-		_textAttacker.text = "Attacker: " + attacker.name;
-		if (attacker is Character)
-		{
-			var weapon = ((Character)attacker).GetEquippedWeapon();
-			_textAttacker.text += " (" + (weapon != null ? weapon.name : "Barehanded") + ")";
-		}
-		_textDefender.text = "Defender: " + defender.name;
 		_attacker = attacker;
-		_defender = defender;
+		_textAttacker.text = "Attacker: ";
+		if (_attacker == null)
+		{
+			_attacker = _unarmedCombatOption;
+		}
+		if ((_attacker is ItemWeaponDef) || attacker == null)
+		{
+			_textAttacker.text += Game.PlayerCharacter.name + " (" + _attacker.name + ")";
+		}
+		else
+		{
+			_textAttacker.text += _attacker.name;
+		}
 		UpdatePierce(_attacker);
 		UpdateRangeModifier(_attacker);
-		_textRange.transform.parent.gameObject.SetActive(attacker.AttackType == AttackType.Ranged);
+
+		_defender = defender;
+		_textDefender.text = "Defender: ";
+		if (_defender != null)
+		{
+			_textDefender.text += _defender.name;
+		}
+		else
+		{
+			_textDefender.text = "Roll Defense Die for each Target";
+		}
+		_textRange.transform.parent.gameObject.SetActive(_attacker.AttackType == AttackType.Ranged);
 	}
 
 	public void ShowCombatRoll(List<AttackDieDef> attackDieDefs, List<DefenseDieDef> defenseDieDefs, List<int> attackRolledIndex, List<int> defendRolledIndex)
@@ -125,7 +142,8 @@ public class UICombatRoller : MonoBehaviour
 		ResetResultsText();
 
 		var result = Roller.CombatRoll(_attacker, _defender, out List<int> rolledFaceIndexAttack, out List<int> rolledFaceIndexDefense);
-		ShowCombatRoll(_attacker.AttackDice, _defender.DefenseDice, rolledFaceIndexAttack, rolledFaceIndexDefense);
+		var defenseDice = _defender != null ? _defender.DefenseDice : new List<DefenseDieDef>();
+		ShowCombatRoll(_attacker.AttackDice, defenseDice, rolledFaceIndexAttack, rolledFaceIndexDefense);
 		UpdatePierce(_attacker);
 		UpdateRangeModifier(_attacker);
 

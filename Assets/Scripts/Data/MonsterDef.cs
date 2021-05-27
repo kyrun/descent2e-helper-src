@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Definitions/Monster", order = 10000)]
-public class MonsterDef : ScriptableObject
+public class MonsterDef : ScriptableObject, IListable
 {
 	readonly Color COLOR_MASTER = new Color(0.882353f, 0.06666667f, 0.0627451f);
 	[SerializeField] List<VarietyGroup> _act = default;

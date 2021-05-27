@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseDef<T> : ScriptableObject where T : BaseDef<T>
+public abstract class BaseDef<T> : ScriptableObject, IListable where T : BaseDef<T>
 {
 	static Dictionary<string, T> _dictDef = new Dictionary<string, T>();
 

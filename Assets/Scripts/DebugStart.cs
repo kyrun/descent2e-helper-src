@@ -8,16 +8,9 @@ public class DebugStart : MonoBehaviour
 	{
 		if (Game.PlayerCharacter == null)
 		{
-			Game.PlayerCharacter = new Character(CharacterDef.Get("Grisban the Thirsty"), ClassDef.Get("Berserker"));
-
-			//Game.PlayerCharacter.AddItem(Resources.Load("Items/Armor/Leather Armor") as ItemArmorDef);
-			//Game.PlayerCharacter.AddItem(Resources.Load("Items/Armor/Chainmail") as ItemArmorDef);
-			//Game.PlayerCharacter.AddItem(Resources.Load("Items/OneHand/Steel Broadsword") as ItemWeaponDef);
-			//Game.PlayerCharacter.AddItem(Resources.Load("Items/OneHand/Iron Shield") as ItemShieldDef);
-			//Game.PlayerCharacter.AddItem(Resources.Load("Items/TwoHand/Sunburst") as ItemWeaponDef);
-			//Game.PlayerCharacter.AddItem(Resources.Load("Items/Other/Ring of Power") as ItemOtherDef);
-			//Game.PlayerCharacter.AddItem(Resources.Load("Items/Other/Mana Weave") as ItemOtherDef);
-			//Game.PlayerCharacter.AddItem(Resources.Load("Items/Other/Scorpion Helm") as ItemOtherDef);
+			Game.PlayerCharacter = new Character(CharacterDef.Get("Widow Tarha"), ClassDef.Get("Necromancer"));
+			//Game.PlayerCharacter.AddItem(ItemDef.Get("Steel Broadsword"));
+			//Game.PlayerCharacter.AddItem(ItemDef.Get("Light Hammer"));
 		}
 	}
 
@@ -25,12 +18,9 @@ public class DebugStart : MonoBehaviour
 	{
 		//if (Input.GetKeyDown(KeyCode.Space))
 		//{
-		//	var newChar = new Character(Game.PlayerCharacter.ToSaveString());
-		//	print(newChar.ToSaveString());
 		//}
 		//if (Input.GetKeyDown(KeyCode.Return))
 		//{
-		//	print(Game.PlayerCharacter.ToSaveString());
 		//}
 	}
 }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Dragontooth Hammer
   m_EditorClassIdentifier: 
   _traits: 07000000
-  _modifiers:
-  - {fileID: 11400000, guid: cea061b4c4889fe408ac811df01848da, type: 2}
+  _modifiers: []
+  _pierce: 1
+  _rangeModifier: 0
   _attackType: 0
   _handedness: 0
   _attackDice:

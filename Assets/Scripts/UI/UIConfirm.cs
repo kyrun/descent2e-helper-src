@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIConfirm : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class UIConfirm : MonoBehaviour
     [SerializeField] GameObject _root = default;
     [SerializeField] Button _btnYes = default;
     [SerializeField] Button _btnNo = default;
+    [SerializeField] TextMeshProUGUI _txtTitle = default;
 
     void Awake()
 	{
@@ -30,9 +32,10 @@ public class UIConfirm : MonoBehaviour
         _root.SetActive(false);
     }
 
-    public void Confirm(UnityAction action)
+    public void Confirm(string textTitle, UnityAction action)
     {
         _root.SetActive(true);
+        _txtTitle.text = textTitle;
         _btnYes.onClick.RemoveAllListeners();
         _btnYes.onClick.AddListener(()=>
         {

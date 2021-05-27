@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public static class Game
 {
-	public static string SaveName;
-	public static Character PlayerCharacter;
+	public static string SaveName = "";
+	public static Character PlayerCharacter = null;
 
 	public static bool IsReady { get { return PlayerCharacter != null; } }
 

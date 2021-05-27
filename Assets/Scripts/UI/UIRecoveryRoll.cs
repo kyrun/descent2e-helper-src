@@ -11,7 +11,7 @@ public class UIRecoveryRoll : MonoBehaviour
 	[SerializeField] DieAnimator _dieAnimator0 = default;
 	[SerializeField] DieAnimator _dieAnimator1 = default;
 	[SerializeField] Button _btnRoll = default;
-	[SerializeField] Button _btnClose = default;
+	[SerializeField] Button _btnApply = default;
 
 	int _recoverDamage = 0;
 	int _recoverFatigue = 0;
@@ -20,7 +20,7 @@ public class UIRecoveryRoll : MonoBehaviour
 	void Awake()
 	{
 		_btnRoll.onClick.AddListener(Roll);
-		_btnClose.onClick.AddListener(OnClose);
+		_btnApply.onClick.AddListener(OnApply);
 	}
 
 	void OnEnable()
@@ -28,6 +28,7 @@ public class UIRecoveryRoll : MonoBehaviour
 		_dieAnimator0.SetFaceVisible(false);
 		_dieAnimator1.SetFaceVisible(false);
 		_recoverDamage = _recoverFatigue = 0;
+		_btnApply.interactable = false;
 	}
 
 	public void Roll()
@@ -55,10 +56,12 @@ public class UIRecoveryRoll : MonoBehaviour
 
 		yield return DieAnimator.WaitForUntilAllDiceFinishRolling(listDice);
 
+		_btnApply.interactable = true;
+
 		_coroutine = null;
 	}
 
-	void OnClose()
+	void OnApply()
 	{
 		if (Game.PlayerCharacter == null) return;
 

@@ -1,21 +1,24 @@
 using System.Collections.Generic;
 
-public interface IAttacker
+public interface IAttacker : IListable
 {
-	string name { get; }
 	int Pierce { get; }
 	int RangeModifier { get; }
 	List<AttackDieDef> AttackDice { get; }
 	AttackType AttackType { get; }
 }
 
-public interface IDefender
+public interface IDefender : IListable
 {
-	string name { get; }
 	List<DefenseDieDef> DefenseDice { get; }
 }
 
 public interface IHandItem
 {
 	Handedness Handedness { get; }
+}
+
+public interface IListable
+{
+	string name { get; }
 }

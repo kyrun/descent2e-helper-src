@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class ItemDef : BaseDef<ItemDef>
 {
-	[SerializeField] List<ItemTrait> _traits = default;
-	[SerializeField] List<CharacterModifierDef> _modifiers = default;
+	[SerializeField] protected List<ItemTrait> _traits = default;
+	[SerializeField] protected List<CharacterModifierDef> _modifiers = default;
 
 	public IEnumerable<ItemTrait> Traits { get { return _traits; } }
 	public IEnumerable<CharacterModifierDef> Modifiers { get { return _modifiers; } }

@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public abstract class UIListButton<T> : MonoBehaviour where T : ScriptableObject
+public abstract class UIListButton<T> : MonoBehaviour where T : IListable
 {
+	public enum Type
+	{
+		OnAwake,
+		OnEnable
+	}
+
+	[SerializeField] protected Type _type = Type.OnAwake;
 	[SerializeField] protected Button _defaultButton = default;
 
 	protected List<T> _items = new List<T>();
@@ -14,7 +21,25 @@ public abstract class UIListButton<T> : MonoBehaviour where T : ScriptableObject
 
 	protected virtual void Awake()
 	{
-		T[] items = Resources.LoadAll<T>("");
+		_listButton.Add(_defaultButton);
+		if (_type == Type.OnAwake)
+		{
+			Init();
+		}
+	}
+
+	protected virtual void OnEnable()
+	{
+		if (_type == Type.OnEnable)
+		{
+			Init();
+		}
+	}
+
+	void Init()
+	{
+		T[] items = LoadItems();
+		_items.Clear();
 		foreach (var item in items)
 		{
 			_items.Add(item);
@@ -22,18 +47,27 @@ public abstract class UIListButton<T> : MonoBehaviour where T : ScriptableObject
 
 		Sort(_items);
 
-		for (int i = 0; i < _items.Count; ++i)
+		int i = 0;
+		for (; i < _items.Count; ++i)
 		{
-			var button = _defaultButton;
 			var def = _items[i];
-			if (i > 0) button = Instantiate(_defaultButton, _defaultButton.transform.parent);
-			SetButtonText(button, ItemName(def));
+			if (i >= _listButton.Count)
+			{
+				var button = Instantiate(_defaultButton, _defaultButton.transform.parent);
+				_listButton.Add(button);
+			}
+			SetButtonText(_listButton[i], ItemName(def));
 
-			button.onClick.AddListener(() =>
+			_listButton[i].onClick.RemoveAllListeners();
+			_listButton[i].onClick.AddListener(() =>
 			{
 				OnButtonPress(def);
 			});
-			_listButton.Add(button);
+		}
+
+		for (; i < _listButton.Count; ++i)
+		{
+			_listButton[i].gameObject.SetActive(false);
 		}
 	}
 
@@ -43,12 +77,14 @@ public abstract class UIListButton<T> : MonoBehaviour where T : ScriptableObject
 		btn.GetComponentInChildren<TextMeshProUGUI>(true).text = str;
 	}
 
+	protected abstract T[] LoadItems();
+
 	protected abstract void OnButtonPress(T def);
 
 	protected abstract void Sort(List<T> list);
 
-	protected virtual string ItemName(T def)
+	protected virtual string ItemName(T item)
 	{
-		return def.name;
+		return item.name;
 	}
 }

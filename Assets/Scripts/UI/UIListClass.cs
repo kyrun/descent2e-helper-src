@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIClassSelect : UIListButton<ClassDef>
+public class UIListClass : UIListScriptableObj<ClassDef>
 {
     [SerializeField] UIInputName _uiInputName = default;
 

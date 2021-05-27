@@ -16,4 +16,5 @@ MonoBehaviour:
   _staminaCost: 1
   _isAction: 1
   _isExhaustable: 0
-  _modifiers: []
+  _modifiers:
+  - {fileID: 11400000, guid: f4ebc1016aeb2a5489b532b59cd1dfce, type: 2}

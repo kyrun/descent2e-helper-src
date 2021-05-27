@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UICharSelect : UIListButton<CharacterDef>
+public class UIListCharacter : UIListScriptableObj<CharacterDef>
 {
-    [SerializeField] UIClassSelect _classSelect = default;
+    [SerializeField] UIListClass _classSelect = default;
 
 	protected override void OnButtonPress(CharacterDef character)
     {

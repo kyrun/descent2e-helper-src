@@ -44,7 +44,7 @@ public class UIInfo : MonoBehaviour
 		});
 		_btnKO.onClick.AddListener(() =>
 		{
-			UIConfirm.Singleton.Confirm(KO);
+			UIConfirm.Singleton.Confirm("Are you sure you want to KO this hero?", KO);
 		});
 	}
 

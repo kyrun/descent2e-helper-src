@@ -22,12 +22,15 @@ public static class Roller
 			if (face.IsMiss) result.miss = true;
 			rolledFaceIndexAttack.Add(roll);
 		}
-		var defenderDice = defender.DefenseDice;
-		for (int i = 0; i < defenderDice.Count; ++i)
+		if (defender != null)
 		{
-			var roll = defenderDice[i].Roll();
-			result.defense += defenderDice[i].GetDefensePerFace(roll);
-			rolledFaceIndexDefense.Add(roll);
+			var defenderDice = defender.DefenseDice;
+			for (int i = 0; i < defenderDice.Count; ++i)
+			{
+				var roll = defenderDice[i].Roll();
+				result.defense += defenderDice[i].GetDefensePerFace(roll);
+				rolledFaceIndexDefense.Add(roll);
+			}
 		}
 		result.defense = Mathf.Max(0, result.defense);
 		result.pierce = attacker.Pierce;

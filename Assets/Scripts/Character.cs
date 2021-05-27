@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
-public class Character : IAttacker, IDefender
+public class Character : IDefender
 {
 	public int Act { get; set; } = 1;
 	public int NumPlayers { get; private set; } = 4;
@@ -25,6 +26,7 @@ public class Character : IAttacker, IDefender
 
 	public List<Condition> Conditions = new List<Condition>();
 
+	public List<IAttacker> _listAttackOption = new List<IAttacker>();
 	Dictionary<Modifier, int> _dictModifier = new Dictionary<Modifier, int>();
 
 	public int Speed
@@ -67,6 +69,14 @@ public class Character : IAttacker, IDefender
 				}
 			}
 			return AttackType.Melee;
+		}
+	}
+
+	public IAttacker[] AttackOptions
+	{
+		get
+		{
+			return _listAttackOption.ToArray();
 		}
 	}
 
@@ -115,7 +125,7 @@ public class Character : IAttacker, IDefender
 		}
 	}
 
-	public int Pierce
+	public int PierceModifier
 	{
 		get
 		{
@@ -136,11 +146,9 @@ public class Character : IAttacker, IDefender
 	{
 		if (!_listSkills.Contains(skillDef))
 		{
+			UnlearnAll();
 			_listSkills.Add(skillDef);
-			foreach (var modifier in skillDef.Modifiers)
-			{
-				modifier.OnActivate(this);
-			}
+			LearnAll();
 		}
 	}
 
@@ -148,10 +156,31 @@ public class Character : IAttacker, IDefender
 	{
 		if (_listSkills.Contains(skillDef))
 		{
+			UnlearnAll();
 			_listSkills.Remove(skillDef);
+			LearnAll();
+		}
+	}
+
+	void UnlearnAll()
+	{
+		for (int i = _listSkills.Count - 1; i >= 0; --i) // do in reverse
+		{
+			foreach (var modifier in _listSkills[i].Modifiers)
+			{
+				modifier.Deactivate(this);
+			}
+		}
+	}
+
+	void LearnAll()
+	{
+		_listSkills = new List<SkillDef>(_listSkills.OrderBy(s => s.XP).ThenBy(s => s.name));
+		foreach (var skillDef in _listSkills)
+		{
 			foreach (var modifier in skillDef.Modifiers)
 			{
-				modifier.OnDeactivate(this);
+				modifier.Activate(this);
 			}
 		}
 	}
@@ -188,7 +217,12 @@ public class Character : IAttacker, IDefender
 				_dictItems[itemDef] = true;
 				foreach (var modifier in itemDef.Modifiers)
 				{
-					modifier.OnActivate(this);
+					modifier.Activate(this);
+				}
+				if (itemDef is ItemWeaponDef)
+				{
+					var weaponDef = (ItemWeaponDef)itemDef;
+					_listAttackOption.Add(weaponDef);
 				}
 			}
 		}
@@ -204,7 +238,12 @@ public class Character : IAttacker, IDefender
 				_dictItems[itemDef] = false;
 				foreach (var modifier in itemDef.Modifiers)
 				{
-					modifier.OnDeactivate(this);
+					modifier.Deactivate(this);
+				}
+				if (itemDef is ItemWeaponDef)
+				{
+					var weaponDef = (ItemWeaponDef)itemDef;
+					_listAttackOption.Remove(weaponDef);
 				}
 			}
 		}
@@ -287,26 +326,22 @@ public class Character : IAttacker, IDefender
 
 		return equip;
 	}
+	#endregion
 
-	public ItemWeaponDef GetEquippedWeapon()
+	public void AddAttackOption(IAttacker attackOption)
 	{
-		foreach (var kvp in _dictItems)
-		{
-			if (!kvp.Value) continue;
-
-			var item = kvp.Key;
-			if (item is ItemWeaponDef)
-			{
-				return (ItemWeaponDef)item;
-			}
-		}
-		return null;
+		_listAttackOption.Add(attackOption);
 	}
-#endregion
+
+	public void RemoveAttackOption(IAttacker attackOption)
+	{
+		_listAttackOption.Remove(attackOption);
+	}
 
 	public void IncrementDamage()
 	{
 		++Damage;
+		if (Damage > 99) Damage = 99;
 	}
 	public void DecrementDamage()
 	{
@@ -316,6 +351,7 @@ public class Character : IAttacker, IDefender
 	public void IncrementFatigue()
 	{
 		++Fatigue;
+		if (Fatigue > 99) Fatigue = 99;
 	}
 	public void DecrementFatigue()
 	{
@@ -379,11 +415,11 @@ public class Character : IAttacker, IDefender
 		Class = classDef;
 		foreach (var item in Class.StartingItems)
 		{
-			_dictItems.Add(item, true);
+			AddItem(item);
 		}
 		foreach (var skill in Class.StartingSkills)
 		{
-			_listSkills.Add(skill);
+			LearnSkill(skill);
 		}
 	}
 
