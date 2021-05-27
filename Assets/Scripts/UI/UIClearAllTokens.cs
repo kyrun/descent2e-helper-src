@@ -11,7 +11,7 @@ public class UIClearAllTokens : MonoBehaviour
     {
         _btn.onClick.AddListener(() =>
 		{
-			UIConfirm.Singleton.Confirm("Are you sure you want to clear all Damage, Fatigue and Conditions on this hero?", ClearAllTokens);
+			UIConfirm.Singleton.Confirm("Are you sure you want to clear all Wound, Fatigue and Conditions on this hero?", ClearAllTokens);
 		});
     }
 

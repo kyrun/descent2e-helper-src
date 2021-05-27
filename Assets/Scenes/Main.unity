@@ -6673,7 +6673,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1833195715107732802, guid: c62de8d7051346a4891a2410931473a3, type: 3}
       propertyPath: m_text
-      value: Select Target
+      value: Select Opponent
       objectReference: {fileID: 0}
     - target: {fileID: 3612340551046917272, guid: c62de8d7051346a4891a2410931473a3, type: 3}
       propertyPath: m_text
