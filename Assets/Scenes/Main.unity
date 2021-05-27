@@ -15107,7 +15107,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 398161801869582029, guid: fda05a3bc1bbaae4282efd677168fa31, type: 3}
       propertyPath: m_text
-      value: Remove Immobilized
+      value: 'Remove
+
+        Immobilized'
+      objectReference: {fileID: 0}
+    - target: {fileID: 398161801869582029, guid: fda05a3bc1bbaae4282efd677168fa31, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 398161801869582029, guid: fda05a3bc1bbaae4282efd677168fa31, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 1031021174771687812, guid: fda05a3bc1bbaae4282efd677168fa31, type: 3}
       propertyPath: m_text
