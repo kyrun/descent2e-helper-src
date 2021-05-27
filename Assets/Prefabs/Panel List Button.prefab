@@ -44,9 +44,9 @@ MonoBehaviour:
     m_Top: 10
     m_Bottom: 10
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 10
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 1
@@ -120,9 +120,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: abe7be2e805adde4d9621e3e07508ebe, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -200,11 +200,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
   m_MinWidth: -1
-  m_MinHeight: 60
+  m_MinHeight: 80
   m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredHeight: 0
   m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
+  m_FlexibleHeight: 0
   m_LayoutPriority: 1
 --- !u!1 &9188058536680379822
 GameObject:
@@ -241,7 +241,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -40, y: -20}
+  m_SizeDelta: {x: -80, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1470317335880025044
 CanvasRenderer:
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Item
+  m_text: Item Text Item Text Item Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6de89d5ad7dd97b42b46a835ebc66e00, type: 2}
   m_sharedMaterial: {fileID: -5425193325112358949, guid: 6de89d5ad7dd97b42b46a835ebc66e00, type: 2}
@@ -298,12 +298,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 23.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 20
-  m_fontSizeMax: 36
+  m_fontSizeMin: 16
+  m_fontSizeMax: 24
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 1
   m_linkedTextComponent: {fileID: 0}
@@ -349,11 +349,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1007394822183361782, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
       propertyPath: m_fontSize
-      value: 32
+      value: 28.9
       objectReference: {fileID: 0}
     - target: {fileID: 1007394822183361782, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
       propertyPath: m_margin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007394822183361782, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2507790084936813247, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -410,6 +414,10 @@ PrefabInstance:
     - target: {fileID: 7565174707589619985, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
       propertyPath: m_Name
       value: Panel List Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602379953740603941, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
+      propertyPath: m_Type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8128870148564793331, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
       propertyPath: m_Pivot.x
@@ -520,15 +528,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8711504619896622474, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8711504619896622474, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8711504619896622474, guid: f300c8ffbddf41441b9989b23fd9055f, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
