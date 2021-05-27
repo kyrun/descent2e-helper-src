@@ -14,11 +14,12 @@ public class UIInfo : MonoBehaviour
 	[SerializeField] Button _btnDecDmg = default;
 	[SerializeField] Button _btnIncFatigue = default;
 	[SerializeField] Button _btnDecFatigue = default;
-	[SerializeField] Button _btnKO = default;
 	[SerializeField] RectTransform _rectBGDmg = default;
 	[SerializeField] RectTransform _rectFillDmg = default;
 	[SerializeField] RectTransform _rectBGFatigue = default;
 	[SerializeField] RectTransform _rectFillFatigue = default;
+
+	[SerializeField] Button _btnKO = default;
 
 	void Awake()
 	{

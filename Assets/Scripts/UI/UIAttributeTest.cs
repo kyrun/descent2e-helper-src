@@ -44,9 +44,7 @@ public class UIAttributeTest : MonoBehaviour
 
 	void OnEnable()
 	{
-		_txtResult.text = "";
-		_dieAnimator0.SetFaceVisible(false);
-		_dieAnimator1.SetFaceVisible(false);
+		Clear();
 	}
 
 	public void Roll()
@@ -87,11 +85,19 @@ public class UIAttributeTest : MonoBehaviour
 		_coroutine = null;
 	}
 
+	void Clear()
+	{
+		_txtResult.text = "";
+		_dieAnimator0.SetFaceVisible(false);
+		_dieAnimator1.SetFaceVisible(false);
+	}
+
 	public void Init(Attribute attribute)
     {
 		_attributeValueToTest = Game.PlayerCharacter.GetAttribute(attribute);
 
 		_txtAttributeTitle.text = attribute + " Test (" + _attributeValueToTest + ")";
+		Clear();
 		gameObject.SetActive(true);
     }
 }
