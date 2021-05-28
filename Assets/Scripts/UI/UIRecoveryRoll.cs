@@ -28,7 +28,7 @@ public class UIRecoveryRoll : MonoBehaviour
 		_dieAnimator0.SetFaceVisible(false);
 		_dieAnimator1.SetFaceVisible(false);
 		_recoverDamage = _recoverFatigue = 0;
-		_btnApply.interactable = false;
+		_btnApply.gameObject.SetActive(false);
 	}
 
 	public void Roll()
@@ -56,7 +56,7 @@ public class UIRecoveryRoll : MonoBehaviour
 
 		yield return DieAnimator.WaitForUntilAllDiceFinishRolling(listDice);
 
-		_btnApply.interactable = true;
+		_btnApply.gameObject.SetActive(true);
 
 		_coroutine = null;
 	}
