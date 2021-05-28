@@ -87,7 +87,7 @@ public class UICombatRoller : MonoBehaviour
 		gameObject.SetActive(true);
 		ResetResultsText();
 		_attacker = attacker;
-		_textAttacker.text = "Attacker: ";
+		_textAttacker.text = "";
 		if (_attacker == null)
 		{
 			_attacker = _unarmedCombatOption;
@@ -104,7 +104,7 @@ public class UICombatRoller : MonoBehaviour
 		UpdateRangeModifier(_attacker);
 
 		_defender = defender;
-		_textDefender.text = "Defender: ";
+		_textDefender.text = "";
 		if (_defender != null)
 		{
 			_textDefender.text += _defender.name;

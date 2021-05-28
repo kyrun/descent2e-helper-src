@@ -16,6 +16,8 @@ public class UIAttributeTest : MonoBehaviour
 	[SerializeField] DieAnimator _dieAnimator1 = default;
 	[SerializeField] Button _btnRoll = default;
 	[SerializeField] Button _btnClose = default;
+	[SerializeField] Image _imgAttribute = default;
+	[SerializeField] List<Sprite> _listSpriteAttribute = new List<Sprite>();
 
 	int _attributeValueToTest;
 	bool _resultPass;
@@ -97,6 +99,7 @@ public class UIAttributeTest : MonoBehaviour
 		_attributeValueToTest = Game.PlayerCharacter.GetAttribute(attribute);
 
 		_txtAttributeTitle.text = attribute + " Test (" + _attributeValueToTest + ")";
+		_imgAttribute.sprite = _listSpriteAttribute[(int)attribute];
 		Clear();
 		gameObject.SetActive(true);
     }
