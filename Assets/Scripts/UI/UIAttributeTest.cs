@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIAttributeTest : MonoBehaviour
+public class UIAttributeTest : MonoBehaviour, IRerollable
 {
 	[SerializeField] Color _colorPass = Color.green;
 	[SerializeField] Color _colorFail = Color.red;
@@ -20,11 +20,14 @@ public class UIAttributeTest : MonoBehaviour
 	[SerializeField] List<Sprite> _listSpriteAttribute = new List<Sprite>();
 
 	int _attributeValueToTest;
+	int _lastRoll0, _lastRoll1;
 	bool _resultPass;
 	Coroutine _coroutine;
 
 	public System.Action OnPassTest;
 	public System.Action OnFailTest;
+
+	public bool IsRolling { get; private set; }
 
 	void Awake()
 	{
@@ -53,23 +56,45 @@ public class UIAttributeTest : MonoBehaviour
 	{
 		//Init((Attribute)Random.Range(0, 4)); // for testing puposes
 
+		IsRolling = true;
+
 		_txtResult.text = "";
 
-		var roll0 = _die0.Roll();
-		var roll1 = _die1.Roll();
-		_dieAnimator0.Roll(_die0, roll0, 0);
-		_dieAnimator1.Roll(_die1, roll1, 1);
+		_lastRoll0 = _die0.Roll();
+		_lastRoll1 = _die1.Roll();
+		_dieAnimator0.Roll(_die0, _lastRoll0, 0);
+		_dieAnimator1.Roll(_die1, _lastRoll1, 1);
 
 		if (_coroutine != null) StopCoroutine(_coroutine);
-		_coroutine = StartCoroutine(WaitAndUpdateResult(_die0.GetDefensePerFace(roll0) + _die1.GetDefensePerFace(roll1) <= _attributeValueToTest));
-	}
-
-	IEnumerator WaitAndUpdateResult(bool pass)
-	{
 		var listDice = new List<DieAnimator>();
 		listDice.Add(_dieAnimator0);
 		listDice.Add(_dieAnimator1);
+		_coroutine = StartCoroutine(WaitAndUpdateResult(_die0.GetDefensePerFace(_lastRoll0) + _die1.GetDefensePerFace(_lastRoll1) <= _attributeValueToTest, listDice));
+	}
 
+	public void RerollOneDie(DieAnimator dieAnimator)
+	{
+		IsRolling = true;
+
+		if (dieAnimator == _dieAnimator0)
+		{
+			_lastRoll0 = _die0.Roll();
+			_dieAnimator0.Roll(_die0, _lastRoll0, 0);
+		}
+		else if (dieAnimator == _dieAnimator1)
+		{
+			_lastRoll1 = _die1.Roll();
+			_dieAnimator1.Roll(_die1, _lastRoll1, 0);
+		}
+
+		if (_coroutine != null) StopCoroutine(_coroutine);
+		var listDice = new List<DieAnimator>();
+		listDice.Add(dieAnimator);
+		_coroutine = StartCoroutine(WaitAndUpdateResult(_die0.GetDefensePerFace(_lastRoll0) + _die1.GetDefensePerFace(_lastRoll1) <= _attributeValueToTest, listDice));
+	}
+
+	IEnumerator WaitAndUpdateResult(bool pass, List<DieAnimator> listDice)
+	{
 		yield return DieAnimator.WaitForUntilAllDiceFinishRolling(listDice);
 
 		_resultPass = pass;
@@ -84,6 +109,7 @@ public class UIAttributeTest : MonoBehaviour
 			_txtResult.text = "FAIL";
 		}
 
+		IsRolling = false;
 		_coroutine = null;
 	}
 

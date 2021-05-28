@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UICombatRoller : MonoBehaviour
+public class UICombatRoller : MonoBehaviour, IRerollable
 {
 	[SerializeField] ModifierAttackOptionDef _unarmedCombatOption = default;
-	[SerializeField] List<DieAnimator> _attackDice = default;
-	[SerializeField] List<DieAnimator> _defenseDice = default;
+	[SerializeField] List<DieAnimator> _attackDiceAnimator = default;
+	[SerializeField] List<DieAnimator> _defenseDiceAnimator = default;
 	[SerializeField] TextMeshProUGUI _textAttacker = default;
 	[SerializeField] TextMeshProUGUI _textDefender = default;
 	[SerializeField] TextMeshProUGUI _textPierce = default;
@@ -18,25 +18,33 @@ public class UICombatRoller : MonoBehaviour
 	[SerializeField] TextMeshProUGUI _textSurge = default;
 	[SerializeField] TextMeshProUGUI _textRange = default;
 	[SerializeField] TextMeshProUGUI _textDamage = default;
+	[SerializeField] GameObject _gobMissed = default;
 
 	IAttacker _attacker;
 	IDefender _defender;
 	Coroutine _coroutine;
 
+	List<int> _rolledFaceIndexAttack;
+	List<int> _rolledFaceIndexDefense;
+	RollResult _lastRollResult;
+
+	public bool IsRolling { get; private set; }
+
 	void OnEnable()
 	{
-		foreach (var img in _attackDice)
+		foreach (var img in _attackDiceAnimator)
 		{
 			img.gameObject.SetActive(false);
 		}
-		foreach (var img in _defenseDice)
+		foreach (var img in _defenseDiceAnimator)
 		{
 			img.gameObject.SetActive(false);
 		}
 		UpdatePierce(null);
 		UpdateRangeModifier(null);
-		_textAttacker.text = "Attacker";
-		_textDefender.text = "Defender";
+		//_textAttacker.text = "Attacker";
+		//_textDefender.text = "Defender";
+		_gobMissed.SetActive(false);
 		ResetResultsText();
 	}
 
@@ -66,6 +74,7 @@ public class UICombatRoller : MonoBehaviour
 		var defense = result.defense - result.pierce;
 		defense = Mathf.Max(0, defense);
 		_textDamage.text = (result.heart - defense).ToString();
+		_gobMissed.SetActive(result.miss);
 	}
 
 	void UpdatePierce(IAttacker attacker)
@@ -116,50 +125,90 @@ public class UICombatRoller : MonoBehaviour
 		_textRange.transform.parent.gameObject.SetActive(_attacker.AttackType == AttackType.Ranged);
 	}
 
-	public void ShowCombatRoll(List<AttackDieDef> attackDieDefs, List<DefenseDieDef> defenseDieDefs, List<int> attackRolledIndex, List<int> defendRolledIndex)
+	void ShowCombatRoll(List<AttackDieDef> attackDieDefs, List<DefenseDieDef> defenseDieDefs, List<int> attackRolledIndex, List<int> defendRolledIndex)
 	{
 		int order = 0;
-		for (int i = 0; i < _attackDice.Count; ++i)
+		for (int i = 0; i < _attackDiceAnimator.Count; ++i)
 		{
-			_attackDice[i].gameObject.SetActive(i < attackDieDefs.Count);
+			_attackDiceAnimator[i].gameObject.SetActive(i < attackDieDefs.Count);
 			if (i < attackDieDefs.Count)
 			{
-				_attackDice[i].Roll(attackDieDefs[i], attackRolledIndex[i], order++);
+				_attackDiceAnimator[i].Roll(attackDieDefs[i], attackRolledIndex[i], order++);
 			}
 		}
-		for (int i = 0; i < _defenseDice.Count; ++i)
+		for (int i = 0; i < _defenseDiceAnimator.Count; ++i)
 		{
-			_defenseDice[i].gameObject.SetActive(i < defenseDieDefs.Count);
+			_defenseDiceAnimator[i].gameObject.SetActive(i < defenseDieDefs.Count);
 			if (i < defenseDieDefs.Count)
 			{
-				_defenseDice[i].Roll(defenseDieDefs[i], defendRolledIndex[i], order++);
+				_defenseDiceAnimator[i].Roll(defenseDieDefs[i], defendRolledIndex[i], order++);
 			}
 		}
 	}
 
 	public void Roll()
 	{
+		IsRolling = true;
+
 		ResetResultsText();
 
-		var result = Roller.CombatRoll(_attacker, _defender, out List<int> rolledFaceIndexAttack, out List<int> rolledFaceIndexDefense);
+		_lastRollResult = Roller.CombatRoll(_attacker, _defender, out _rolledFaceIndexAttack, out _rolledFaceIndexDefense);
+
 		var defenseDice = _defender != null ? _defender.DefenseDice : new List<DefenseDieDef>();
-		ShowCombatRoll(_attacker.AttackDice, defenseDice, rolledFaceIndexAttack, rolledFaceIndexDefense);
+		ShowCombatRoll(_attacker.AttackDice, defenseDice, _rolledFaceIndexAttack, _rolledFaceIndexDefense);
 		UpdatePierce(_attacker);
 		UpdateRangeModifier(_attacker);
 
 		if (_coroutine != null) StopCoroutine(_coroutine);
-		_coroutine = StartCoroutine(WaitAndUpdateResult(result, _attacker));
+
+		var listDice = new List<DieAnimator>(_attackDiceAnimator);
+		listDice.AddRange(_defenseDiceAnimator); // add all die animators
+		_coroutine = StartCoroutine(WaitAndUpdateResult(_lastRollResult, listDice));
 	}
 
-	IEnumerator WaitAndUpdateResult(RollResult result, IAttacker attacker)
+	public void RerollOneDie(DieAnimator dieAnimator)
 	{
-		var listDice = new List<DieAnimator>(_attackDice);
-		listDice.AddRange(_defenseDice);
+		IsRolling = true;
 
+		int index;
+		DieDef dieDef;
+		List<int> rolledFaceIndex;
+		if (_attackDiceAnimator.Contains(dieAnimator))
+		{
+			index = _attackDiceAnimator.IndexOf(dieAnimator);
+			dieDef = _attacker.AttackDice[index];
+			rolledFaceIndex = _rolledFaceIndexAttack;
+		}
+		else if (_defender != null && _defenseDiceAnimator.Contains(dieAnimator))
+		{
+			index = _defenseDiceAnimator.IndexOf(dieAnimator);
+			dieDef = _defender.DefenseDice[index];
+			rolledFaceIndex = _rolledFaceIndexDefense;
+		}
+		else
+		{
+			Debug.LogError("No " + typeof(DieAnimator) + " found!", this);
+			return;
+		}
+		rolledFaceIndex[index] = dieDef.Roll();
+
+		_lastRollResult = Roller.GetResultFromRoll(_attacker, _defender, _rolledFaceIndexAttack, _rolledFaceIndexDefense);
+
+		if (_coroutine != null) StopCoroutine(_coroutine);
+
+		var listDice = new List<DieAnimator>();
+		listDice.Add(dieAnimator);
+		dieAnimator.Roll(dieDef, rolledFaceIndex[index], 0);
+		_coroutine = StartCoroutine(WaitAndUpdateResult(_lastRollResult, listDice));
+	}
+
+	IEnumerator WaitAndUpdateResult(RollResult result, List<DieAnimator> listDice)
+	{
 		yield return DieAnimator.WaitForUntilAllDiceFinishRolling(listDice);
 
 		UpdateResult(result, _attacker.AttackType);
 
+		IsRolling = false;
 		_coroutine = null;
 	}
 }

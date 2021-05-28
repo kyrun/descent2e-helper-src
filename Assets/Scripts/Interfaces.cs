@@ -22,3 +22,9 @@ public interface IListable
 {
 	string name { get; }
 }
+
+public interface IRerollable
+{
+	bool IsRolling { get; }
+	void RerollOneDie(DieAnimator dieAnimator);
+}

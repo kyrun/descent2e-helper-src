@@ -9,27 +9,42 @@ public static class Roller
 		rolledFaceIndexAttack = new List<int>();
 		rolledFaceIndexDefense = new List<int>();
 
-		var result = new RollResult();
-
 		var attackerDice = attacker.AttackDice;
 		for (int i = 0; i < attackerDice.Count; ++i)
 		{
-			var roll = attackerDice[i].Roll();
-			var face = attackerDice[i].GetFace(roll);
-			result.heart += face.heart;
-			result.surge += face.surge;
-			result.range += face.range;
-			if (face.IsMiss) result.miss = true;
-			rolledFaceIndexAttack.Add(roll);
+			rolledFaceIndexAttack.Add(attackerDice[i].Roll());
 		}
 		if (defender != null)
 		{
 			var defenderDice = defender.DefenseDice;
 			for (int i = 0; i < defenderDice.Count; ++i)
 			{
-				var roll = defenderDice[i].Roll();
-				result.defense += defenderDice[i].GetDefensePerFace(roll);
-				rolledFaceIndexDefense.Add(roll);
+				rolledFaceIndexDefense.Add(defenderDice[i].Roll());
+			}
+		}
+
+		return GetResultFromRoll(attacker, defender, rolledFaceIndexAttack, rolledFaceIndexDefense);
+	}
+
+	public static RollResult GetResultFromRoll(IAttacker attacker, IDefender defender, List<int> rolledFaceIndexAttack, List<int> rolledFaceIndexDefense)
+	{
+		var result = new RollResult();
+
+		var attackerDice = attacker.AttackDice;
+		for (int i = 0; i < attackerDice.Count; ++i)
+		{
+			var face = attackerDice[i].GetFace(rolledFaceIndexAttack[i]);
+			result.heart += face.heart;
+			result.surge += face.surge;
+			result.range += face.range;
+			if (face.IsMiss) result.miss = true;
+		}
+		if (defender != null)
+		{
+			var defenderDice = defender.DefenseDice;
+			for (int i = 0; i < defenderDice.Count; ++i)
+			{
+				result.defense += defenderDice[i].GetDefensePerFace(rolledFaceIndexDefense[i]);
 			}
 		}
 		result.defense = Mathf.Max(0, result.defense);

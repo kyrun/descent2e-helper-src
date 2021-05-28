@@ -76,7 +76,7 @@ public class DieAnimator : MonoBehaviour
 
 	public static IEnumerator WaitForUntilAllDiceFinishRolling(List<DieAnimator> dice)
 	{
-		bool finished = true;
+		bool finished;
 
 		do
 		{

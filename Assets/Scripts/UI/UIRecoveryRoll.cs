@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // TODO: make generic die rolling script instead of repeat
-public class UIRecoveryRoll : MonoBehaviour
+public class UIRecoveryRoll : MonoBehaviour, IRerollable
 {
 	[SerializeField] AttackDieDef _die0 = default;
 	[SerializeField] AttackDieDef _die1 = default;
@@ -15,7 +15,10 @@ public class UIRecoveryRoll : MonoBehaviour
 
 	int _recoverDamage = 0;
 	int _recoverFatigue = 0;
+	int _lastRoll0, _lastRoll1;
 	Coroutine _coroutine;
+
+	public bool IsRolling { get; private set; }
 
 	void Awake()
 	{
@@ -33,32 +36,62 @@ public class UIRecoveryRoll : MonoBehaviour
 
 	public void Roll()
 	{
-		var roll0 = _die0.Roll();
-		var roll1 = _die1.Roll();
-		_dieAnimator0.Roll(_die0, roll0, 0);
-		_dieAnimator1.Roll(_die1, roll1, 1);
+		IsRolling = true;
 
-		var dieFace0 = _die0.GetFace(roll0);
-		var dieFace1 = _die1.GetFace(roll1);
+		_lastRoll0 = _die0.Roll();
+		_lastRoll1 = _die1.Roll();
+		_dieAnimator0.Roll(_die0, _lastRoll0, 0);
+		_dieAnimator1.Roll(_die1, _lastRoll1, 1);
 
-		_recoverDamage = dieFace0.heart + dieFace1.heart;
-		_recoverFatigue = dieFace0.surge + dieFace1.surge;
+		UpdateRecoveryVarsFromDieFace();
 
 		if (_coroutine != null) StopCoroutine(_coroutine);
-		_coroutine = StartCoroutine(WaitAndUpdateResult());
-	}
-
-	IEnumerator WaitAndUpdateResult()
-	{
 		var listDice = new List<DieAnimator>();
 		listDice.Add(_dieAnimator0);
 		listDice.Add(_dieAnimator1);
+		_coroutine = StartCoroutine(WaitAndUpdateResult(listDice));
+	}
 
+	public void RerollOneDie(DieAnimator dieAnimator)
+	{
+		IsRolling = true;
+
+		if (dieAnimator == _dieAnimator0)
+		{
+			_lastRoll0 = _die0.Roll();
+			_dieAnimator0.Roll(_die0, _lastRoll0, 0);
+		}
+		else if (dieAnimator == _dieAnimator1)
+		{
+			_lastRoll1 = _die1.Roll();
+			_dieAnimator1.Roll(_die1, _lastRoll1, 0);
+		}
+
+		UpdateRecoveryVarsFromDieFace();
+
+		if (_coroutine != null) StopCoroutine(_coroutine);
+		var listDice = new List<DieAnimator>();
+		listDice.Add(dieAnimator);
+		_coroutine = StartCoroutine(WaitAndUpdateResult(listDice));
+	}
+
+	IEnumerator WaitAndUpdateResult(List<DieAnimator> listDice)
+	{
 		yield return DieAnimator.WaitForUntilAllDiceFinishRolling(listDice);
 
 		_btnApply.gameObject.SetActive(true);
 
+		IsRolling = false;
 		_coroutine = null;
+	}
+
+	void UpdateRecoveryVarsFromDieFace()
+	{
+		var dieFace0 = _die0.GetFace(_lastRoll0);
+		var dieFace1 = _die1.GetFace(_lastRoll1);
+
+		_recoverDamage = dieFace0.heart + dieFace1.heart;
+		_recoverFatigue = dieFace0.surge + dieFace1.surge;
 	}
 
 	void OnApply()
