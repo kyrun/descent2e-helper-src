@@ -29,7 +29,7 @@ public class UIClearAllTokens : MonoBehaviour
 		{
 			if (Game.PlayerCharacter.Conditions.Contains(condition)) Game.PlayerCharacter.RemoveCondition(condition);
 		}
-		var uiInfo = FindObjectOfType<UIInfo>();
+		var uiInfo = FindObjectOfType<UIVitals>();
 		uiInfo.UpdateDamage();
 		uiInfo.UpdateFatigue();
 	}

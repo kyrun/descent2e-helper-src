@@ -30,6 +30,12 @@ public class UIChangeAct : MonoBehaviour
     {
         if (!Game.IsReady) return;
 
+        var nextAct = Game.PlayerCharacter.Act + 1 > 2 ? "I" : "II";
+        UIConfirm.Singleton.Confirm("Change to Act " + nextAct + "?", ToggleAct);
+    }
+
+    void ToggleAct()
+    {
         ++Game.PlayerCharacter.Act;
 
         if (Game.PlayerCharacter.Act > 2) Game.PlayerCharacter.Act = 1;
@@ -37,7 +43,7 @@ public class UIChangeAct : MonoBehaviour
         switch (Game.PlayerCharacter.Act)
         {
             case 1:
-                _btn.image.sprite =_act1;
+                _btn.image.sprite = _act1;
                 break;
             case 2:
                 _btn.image.sprite = _act2;

@@ -108,7 +108,7 @@ public class UIAttributeTest : MonoBehaviour, IRerollable
 			_txtResult.color = _colorFail;
 			_txtResult.text = "FAIL";
 		}
-
+		_btnClose.gameObject.SetActive(OnPassTest != null || OnFailTest != null);
 		IsRolling = false;
 		_coroutine = null;
 	}
@@ -118,6 +118,7 @@ public class UIAttributeTest : MonoBehaviour, IRerollable
 		_txtResult.text = "";
 		_dieAnimator0.SetFaceVisible(false);
 		_dieAnimator1.SetFaceVisible(false);
+		_btnClose.gameObject.SetActive(false);
 	}
 
 	public void Init(Attribute attribute)

@@ -107,7 +107,7 @@ public class UIRecoveryRoll : MonoBehaviour, IRerollable
 			Game.PlayerCharacter.DecrementFatigue();
 		}
 
-		var uiInfo = FindObjectOfType<UIInfo>();
+		var uiInfo = FindObjectOfType<UIVitals>();
 		uiInfo.UpdateDamage();
 		uiInfo.UpdateFatigue();
 	}

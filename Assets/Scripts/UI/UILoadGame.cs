@@ -20,6 +20,11 @@ public class UILoadGame : MonoBehaviour
 
 	void OnEnable()
 	{
+		Init();
+	}
+
+	void Init()
+	{
 		_saveGamePaths.Clear();
 
 		var path = Util.GetSavePath();
@@ -53,7 +58,8 @@ public class UILoadGame : MonoBehaviour
 				_listButton.Add(button);
 			}
 
-			SetButtonText(button, Path.GetFileNameWithoutExtension(saveGamePath));
+			var shortName = Path.GetFileNameWithoutExtension(saveGamePath);
+			SetButtonText(button, shortName);
 
 			button.onClick.RemoveAllListeners();
 			button.onClick.AddListener(() =>
@@ -62,6 +68,24 @@ public class UILoadGame : MonoBehaviour
 			});
 
 			button.gameObject.SetActive(true);
+
+			var childButtons = button.GetComponentsInChildren<Button>(true);
+			foreach (var btn in childButtons)
+			{
+				if (btn != button)
+				{
+					btn.onClick.RemoveAllListeners();
+					btn.onClick.AddListener(() =>
+					{
+						UIConfirm.Singleton.Confirm("Delete \"" + shortName + "\"?", () =>
+						{
+							File.Delete(saveGamePath);
+							StartCoroutine(WaitOneFrameAndReinit());
+						});
+					});
+					break;
+				}
+			}
 		}
 		for (; i < _listButton.Count; ++i)
 		{
@@ -88,5 +112,12 @@ public class UILoadGame : MonoBehaviour
 		}
 
 		Game.GoToMainScene();
+	}
+
+	IEnumerator WaitOneFrameAndReinit()
+	{
+		yield return new WaitForEndOfFrame();
+
+		Init();
 	}
 }

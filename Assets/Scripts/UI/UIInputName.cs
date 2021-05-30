@@ -9,6 +9,7 @@ public class UIInputName : MonoBehaviour
 {
 	[SerializeField] TMP_InputField _inputField = default;
 	[SerializeField] Button _btnStart = default;
+	[SerializeField] GameObject _loadingOverlay = default;
 
 	CharacterDef _characterDef;
 	ClassDef _classDef;
@@ -34,10 +35,14 @@ public class UIInputName : MonoBehaviour
 
 	void OnStart()
 	{
-		Game.PlayerCharacter = new Character(_characterDef, _classDef);
-		Game.SaveName = _inputField.text;
-		Util.SaveCharacter();
-		Game.GoToMainScene();
+		UIConfirm.Singleton.Confirm("Begin New Character?", () =>
+		{
+			_loadingOverlay.SetActive(true);
+			Game.PlayerCharacter = new Character(_characterDef, _classDef);
+			Game.SaveName = _inputField.text;
+			Util.SaveCharacter();
+			Game.GoToMainScene();
+		});
 	}
 
 	public void Setup(CharacterDef charDef, ClassDef classDef)
