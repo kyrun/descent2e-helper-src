@@ -6,9 +6,10 @@ using UnityEngine;
 public class UICheckCondition : MonoBehaviour
 {
 	[SerializeField] Condition _condition = default;
+	[SerializeField] UIEndTurn _uiEndTurn = default;
 
+	bool _didAddCallbackRemoval = false;
 	ButtonOkAndNext _btnScript;
-
 	UIAttributeTest _uiAttributeTest;
 
 	void Awake()
@@ -31,12 +32,22 @@ public class UICheckCondition : MonoBehaviour
 					}
 					break;
 
-				case Condition.Immobilized:
 				case Condition.Stunned:
 					Game.PlayerCharacter.RemoveCondition(_condition);
 					break;
+				case Condition.Immobilized:
+					_uiEndTurn.OnEndTurn += RemoveImmobilized;
+					_didAddCallbackRemoval = true;
+					break;
 			}
 		});
+
+		Messenger.Subscribe<MsgConditionChanged>(OnConditionChanged);
+	}
+
+	void OnDestroy()
+	{
+		Messenger.UnSubscribe<MsgConditionChanged>(OnConditionChanged);
 	}
 
 	void OnEnable()
@@ -49,12 +60,45 @@ public class UICheckCondition : MonoBehaviour
 			}
 		}
 	}
+
+	void OnConditionChanged(MsgConditionChanged msg)
+	{
+		if (Game.PlayerCharacter.Conditions.Contains(msg.Condition)) // acquired condition
+		{
+		}
+		else // lost condition
+		{
+			switch (msg.Condition)
+			{
+				case Condition.Immobilized:
+					if (_didAddCallbackRemoval)
+					{
+						ClearRemoveImmobilizedCallback();
+					}
+					break;
+			}
+		}
+	}
+
+	void RemoveImmobilized()
+	{
+		if (Game.PlayerCharacter.Conditions.Contains(Condition.Immobilized))
+		{
+			Game.PlayerCharacter.RemoveCondition(Condition.Immobilized);
+		}
+		ClearRemoveImmobilizedCallback();
+	}
+
+	void ClearRemoveImmobilizedCallback()
+	{
+		_uiEndTurn.OnEndTurn -= RemoveImmobilized;
+		_didAddCallbackRemoval = false;
+	}
 }
 
 public class MsgConditionChanged : Message
 {
 	public Condition Condition { get; private set; }
-
 
 	public MsgConditionChanged(Condition condition)
 	{

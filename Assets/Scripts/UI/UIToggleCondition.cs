@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIToggleCondition : MonoBehaviour
 {
 	[SerializeField] Condition _condition = default;
+	[SerializeField] Animation _animCleared = default;
 
 	Toggle _toggle;
 	Image _image;
@@ -56,7 +57,7 @@ public class UIToggleCondition : MonoBehaviour
 	{
 		Messenger.Subscribe<MsgConditionChanged>(OnConditionChange);
 
-		UpdateCondition(_condition);
+		UpdateCondition(_condition, false);
 	}
 
 	void OnDisable()
@@ -69,7 +70,7 @@ public class UIToggleCondition : MonoBehaviour
 		UpdateCondition(msg.Condition);
 	}
 
-	void UpdateCondition(Condition condition)
+	void UpdateCondition(Condition condition, bool animate = true)
 	{
 		if (Game.PlayerCharacter == null) return;
 
@@ -78,6 +79,11 @@ public class UIToggleCondition : MonoBehaviour
 			var hasCondition = Game.PlayerCharacter.Conditions.Contains(_condition);
 			_image.color = hasCondition ? _colorOn : _colorOff;
 			_toggle.SetIsOnWithoutNotify(hasCondition);
+
+			if (!hasCondition && animate)
+			{
+				_animCleared.Play();
+			}
 		}
 	}
 }
