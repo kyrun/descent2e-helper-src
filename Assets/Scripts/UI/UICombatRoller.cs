@@ -6,7 +6,6 @@ using TMPro;
 
 public class UICombatRoller : MonoBehaviour, IRerollable
 {
-	[SerializeField] ModifierAttackOptionDef _unarmedCombatOption = default;
 	[SerializeField] List<DieAnimator> _attackDiceAnimator = default;
 	[SerializeField] List<DieAnimator> _defenseDiceAnimator = default;
 	[SerializeField] TextMeshProUGUI _textAttacker = default;
@@ -97,17 +96,20 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 		ResetResultsText();
 		_attacker = attacker;
 		_textAttacker.text = "";
-		if (_attacker == null)
+		if (_attacker != null)
 		{
-			_attacker = _unarmedCombatOption;
-		}
-		if ((_attacker is ItemWeaponDef) || attacker == null)
-		{
-			_textAttacker.text += Game.PlayerCharacter.name + " (" + _attacker.name + ")";
+			if ((_attacker is ItemWeaponDef))
+			{
+				_textAttacker.text += Game.PlayerCharacter.name + " (" + _attacker.name + ")";
+			}
+			else
+			{
+				_textAttacker.text += _attacker.name;
+			}
 		}
 		else
 		{
-			_textAttacker.text += _attacker.name;
+			_textAttacker.text = "Manually roll attack dice for Attacker.";
 		}
 		UpdatePierce(_attacker);
 		UpdateRangeModifier(_attacker);
@@ -120,9 +122,14 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 		}
 		else
 		{
-			_textDefender.text = "Roll Defense Die for each Target";
+			_textDefender.text = "Manually roll defense dice for Defender(s).";
+
+			if (!(_attacker is MonsterDef.Properties))
+			{
+				_textDefender.text += "\n\n<b>Road to Legend</b>: When targeting multiple monsters, apply half damage (rounded up) to <u>additional</u> targets.";
+			}
 		}
-		_textRange.transform.parent.gameObject.SetActive(_attacker.AttackType == AttackType.Ranged);
+		_textRange.transform.parent.gameObject.SetActive(_attacker != null && _attacker.AttackType == AttackType.Ranged);
 	}
 
 	void ShowCombatRoll(List<AttackDieDef> attackDieDefs, List<DefenseDieDef> defenseDieDefs, List<int> attackRolledIndex, List<int> defendRolledIndex)
@@ -154,8 +161,9 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 
 		_lastRollResult = Roller.CombatRoll(_attacker, _defender, out _rolledFaceIndexAttack, out _rolledFaceIndexDefense);
 
+		var attackDice = _attacker != null ? _attacker.AttackDice : new List<AttackDieDef>();
 		var defenseDice = _defender != null ? _defender.DefenseDice : new List<DefenseDieDef>();
-		ShowCombatRoll(_attacker.AttackDice, defenseDice, _rolledFaceIndexAttack, _rolledFaceIndexDefense);
+		ShowCombatRoll(attackDice, defenseDice, _rolledFaceIndexAttack, _rolledFaceIndexDefense);
 		UpdatePierce(_attacker);
 		UpdateRangeModifier(_attacker);
 
@@ -204,9 +212,11 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 
 	IEnumerator WaitAndUpdateResult(RollResult result, List<DieAnimator> listDice)
 	{
+		_gobMissed.SetActive(false);
+
 		yield return DieAnimator.WaitForUntilAllDiceFinishRolling(listDice);
 
-		UpdateResult(result, _attacker.AttackType);
+		UpdateResult(result, _attacker != null ? _attacker.AttackType : AttackType.Melee);
 
 		IsRolling = false;
 		_coroutine = null;

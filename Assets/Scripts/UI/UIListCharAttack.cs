@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UIListCharAttack : UIListButton<IAttacker>
 {
+	[SerializeField] ModifierAttackOptionDef _unarmedCombatOption = default;
 	[SerializeField] UICombatRoller _combatRoller = default;
 
 	MonsterDef.Properties _targetMonster;
@@ -38,7 +39,7 @@ public class UIListCharAttack : UIListButton<IAttacker>
 		}
 		else
 		{
-			_combatRoller.Setup(null, monster);
+			_combatRoller.Setup(_unarmedCombatOption, monster);
 		}
 	}
 }

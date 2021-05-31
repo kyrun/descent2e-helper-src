@@ -7,9 +7,10 @@ public class UITargetSelect : MonoBehaviour
 {
 	[SerializeField] Button _btnMinion = default;
 	[SerializeField] Button _btnMaster = default;
-	[SerializeField] Button _btnMultiple = default;
+	[SerializeField] Button _btnOther = default;
 	[SerializeField] UIListMonster _monsterSelect = default;
 	[SerializeField] UIListCharAttack _listCharAttack = default;
+	[SerializeField] UICombatRoller _combatRoller = default;
 
 	bool _monsterIsAttacking;
 
@@ -23,9 +24,16 @@ public class UITargetSelect : MonoBehaviour
 		{
 			_monsterSelect.Setup(_monsterIsAttacking, MonsterVariety.Master);
 		});
-		_btnMultiple.onClick.AddListener(() =>
+		_btnOther.onClick.AddListener(() =>
 		{
-			_listCharAttack.Setup(null);
+			if (_monsterIsAttacking)
+			{
+				_combatRoller.Setup(null, Game.PlayerCharacter);
+			}
+			else
+			{
+				_listCharAttack.Setup(null);
+			}
 		});
 	}
 
@@ -33,7 +41,6 @@ public class UITargetSelect : MonoBehaviour
 	{
 		gameObject.SetActive(true);
 		_monsterIsAttacking = monsterIsAttacking;
-		_btnMultiple.gameObject.SetActive(!_monsterIsAttacking);
 	}
 }
 

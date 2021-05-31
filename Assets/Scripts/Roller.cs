@@ -9,10 +9,13 @@ public static class Roller
 		rolledFaceIndexAttack = new List<int>();
 		rolledFaceIndexDefense = new List<int>();
 
-		var attackerDice = attacker.AttackDice;
-		for (int i = 0; i < attackerDice.Count; ++i)
+		if (attacker != null)
 		{
-			rolledFaceIndexAttack.Add(attackerDice[i].Roll());
+			var attackerDice = attacker.AttackDice;
+			for (int i = 0; i < attackerDice.Count; ++i)
+			{
+				rolledFaceIndexAttack.Add(attackerDice[i].Roll());
+			}
 		}
 		if (defender != null)
 		{
@@ -30,14 +33,19 @@ public static class Roller
 	{
 		var result = new RollResult();
 
-		var attackerDice = attacker.AttackDice;
-		for (int i = 0; i < attackerDice.Count; ++i)
+		if (attacker != null)
 		{
-			var face = attackerDice[i].GetFace(rolledFaceIndexAttack[i]);
-			result.heart += face.heart;
-			result.surge += face.surge;
-			result.range += face.range;
-			if (face.IsMiss) result.miss = true;
+			var attackerDice = attacker.AttackDice;
+			for (int i = 0; i < attackerDice.Count; ++i)
+			{
+				var face = attackerDice[i].GetFace(rolledFaceIndexAttack[i]);
+				result.heart += face.heart;
+				result.surge += face.surge;
+				result.range += face.range;
+				result.pierce = attacker.Pierce;
+				result.bonusRange = attacker.RangeModifier;
+				if (face.IsMiss) result.miss = true;
+			}
 		}
 		if (defender != null)
 		{
@@ -48,8 +56,6 @@ public static class Roller
 			}
 		}
 		result.defense = Mathf.Max(0, result.defense);
-		result.pierce = attacker.Pierce;
-		result.bonusRange = attacker.RangeModifier;
 
 		return result;
 	}

@@ -7335,7 +7335,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8045332371077028944, guid: 66d90b55436ccae419fab178e3dd68df, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8045332371077028944, guid: 66d90b55436ccae419fab178e3dd68df, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8007,9 +8007,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _btnMinion: {fileID: 775758442}
   _btnMaster: {fileID: 1629203051}
-  _btnMultiple: {fileID: 1366244106}
+  _btnOther: {fileID: 1366244106}
   _monsterSelect: {fileID: 1836061213}
   _listCharAttack: {fileID: 1735332290}
+  _combatRoller: {fileID: 1442878412}
 --- !u!1 &775899138
 GameObject:
   m_ObjectHideFlags: 0
@@ -9367,7 +9368,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8045332371077028944, guid: 66d90b55436ccae419fab178e3dd68df, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8045332371077028944, guid: 66d90b55436ccae419fab178e3dd68df, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10545,7 +10546,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8045332371077028944, guid: 66d90b55436ccae419fab178e3dd68df, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8045332371077028944, guid: 66d90b55436ccae419fab178e3dd68df, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10856,7 +10857,7 @@ RectTransform:
   - {fileID: 932097339}
   - {fileID: 1523824155}
   m_Father: {fileID: 990597151}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -11115,7 +11116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -11187,7 +11188,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &971494466
@@ -11387,12 +11388,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1395076559}
   - {fileID: 1554015556}
   - {fileID: 848949989}
   - {fileID: 728412423}
   - {fileID: 912019125}
   - {fileID: 944439426}
-  - {fileID: 1395076559}
   m_Father: {fileID: 1442878407}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15228,13 +15229,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 990597151}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 60, y: 60}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: -20}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1395076560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15269,7 +15270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -15318,7 +15319,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -15341,7 +15342,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1395076562
@@ -15809,7 +15810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec81e3f90bd139b4193af23a54095b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unarmedCombatOption: {fileID: 11400000, guid: 348638503bcfe2a47aebbf52ad012990, type: 2}
   _attackDiceAnimator:
   - {fileID: 1672681771}
   - {fileID: 102089594}
@@ -17318,7 +17318,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8045332371077028944, guid: 66d90b55436ccae419fab178e3dd68df, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8045332371077028944, guid: 66d90b55436ccae419fab178e3dd68df, type: 3}
       propertyPath: m_AnchorMax.y
@@ -18417,7 +18417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Other/Multiple
+  m_text: Roll for Opponent Manually
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6de89d5ad7dd97b42b46a835ebc66e00, type: 2}
   m_sharedMaterial: {fileID: -5425193325112358949, guid: 6de89d5ad7dd97b42b46a835ebc66e00, type: 2}
@@ -19287,6 +19287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 1
   _defaultButton: {fileID: 613741933}
+  _unarmedCombatOption: {fileID: 11400000, guid: 348638503bcfe2a47aebbf52ad012990, type: 2}
   _combatRoller: {fileID: 1442878412}
 --- !u!1 &1735805692
 GameObject:
