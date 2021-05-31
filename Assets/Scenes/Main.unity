@@ -11280,7 +11280,7 @@ MonoBehaviour:
   m_text: '<u>Pass</u>: remove the condition
 
     <u>Fail</u>: suffer <color=#ffcc00>1
-    Fatigue</color> and keep this condition'
+    Fatigue</color> and keep the condition'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6de89d5ad7dd97b42b46a835ebc66e00, type: 2}
   m_sharedMaterial: {fileID: -5425193325112358949, guid: 6de89d5ad7dd97b42b46a835ebc66e00, type: 2}
