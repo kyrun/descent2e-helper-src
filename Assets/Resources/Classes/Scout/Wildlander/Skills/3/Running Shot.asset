@@ -17,3 +17,4 @@ MonoBehaviour:
   _isAction: 0
   _isExhaustable: 0
   _modifiers: []
+  _reminderPrerequisites: 0400000008000000

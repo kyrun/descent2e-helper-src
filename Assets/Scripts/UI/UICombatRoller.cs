@@ -18,6 +18,8 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 	[SerializeField] TextMeshProUGUI _textRange = default;
 	[SerializeField] TextMeshProUGUI _textDamage = default;
 	[SerializeField] GameObject _gobMissed = default;
+	[SerializeField] GameObject _gobBtnReminderPre = default;
+	[SerializeField] GameObject _gobBtnReminderPost = default;
 
 	IAttacker _attacker;
 	IDefender _defender;
@@ -41,15 +43,33 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 		}
 		UpdatePierce(null);
 		UpdateRangeModifier(null);
-		//_textAttacker.text = "Attacker";
-		//_textDefender.text = "Defender";
+
 		_gobMissed.SetActive(false);
 		ResetResultsText();
+		ResetReminderButtons(true);
 	}
 
 	void ResetResultsText()
 	{
 		_textPierce.text = _textRangeModifier.text = _textDefense.text = _textHeart.text = _textSurge.text = _textRange.text = _textDamage.text = "--";
+	}
+
+	void ResetReminderButtons(bool isPreAttack)
+	{
+		bool hasPreAttack = false, hasPostAttack = false;
+		foreach (var skill in Game.PlayerCharacter.Skills)
+		{
+			if (ReminderPrerequisite.MeetPrerequisite(skill, ReminderPrerequisite.Type.PreAttack))
+			{
+				hasPreAttack = true;
+			}
+			if (ReminderPrerequisite.MeetPrerequisite(skill, ReminderPrerequisite.Type.PostAttack))
+			{
+				hasPostAttack = true;
+			}
+		}
+		_gobBtnReminderPre.SetActive(isPreAttack && hasPreAttack);
+		_gobBtnReminderPost.SetActive(!isPreAttack && hasPostAttack);
 	}
 
 	void UpdateResult(RollResult result, AttackType attackType)
@@ -218,6 +238,7 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 
 		UpdateResult(result, _attacker != null ? _attacker.AttackType : AttackType.Melee);
 
+		ResetReminderButtons(false);
 		IsRolling = false;
 		_coroutine = null;
 	}

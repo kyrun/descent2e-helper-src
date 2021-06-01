@@ -8,7 +8,7 @@ public class DebugStart : MonoBehaviour
 	{
 		if (Game.PlayerCharacter == null)
 		{
-			Game.PlayerCharacter = new Character(CharacterDef.Get("Widow Tarha"), ClassDef.Get("Necromancer"));
+			Game.PlayerCharacter = new Character(CharacterDef.Get("Jain Fairwood"), ClassDef.Get("Wildlander"));
 			//Game.PlayerCharacter.AddItem(ItemDef.Get("Steel Broadsword"));
 			//Game.PlayerCharacter.AddItem(ItemDef.Get("Light Hammer"));
 		}

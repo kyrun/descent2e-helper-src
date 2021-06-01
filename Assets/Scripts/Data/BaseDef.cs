@@ -6,9 +6,9 @@ public abstract class BaseDef<T> : ScriptableObject, IListable where T : BaseDef
 {
 	static Dictionary<string, T> _dictDef = new Dictionary<string, T>();
 
-	public static T Get(string charName)
+	public static T Get(string itemName)
 	{
-		if (_dictDef.TryGetValue(charName, out T def))
+		if (_dictDef.TryGetValue(itemName, out T def))
 		{
 			return def;
 		}

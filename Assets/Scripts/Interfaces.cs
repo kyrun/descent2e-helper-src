@@ -28,3 +28,11 @@ public interface IRerollable
 	bool IsRolling { get; }
 	void RerollOneDie(DieAnimator dieAnimator);
 }
+
+public interface IHasReminder : IListable
+{
+	IEnumerable<ReminderPrerequisite.Type> ReminderPrerequisites { get; }
+	int StaminaCost { get; }
+	bool IsAction { get; }
+	bool IsExhaustable { get; }
+}
