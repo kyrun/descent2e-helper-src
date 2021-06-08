@@ -16,3 +16,5 @@ MonoBehaviour:
   _staminaCost: 1
   _isAction: 1
   _isExhaustable: 0
+  _modifiers: []
+  _reminderPrerequisites: 02000000

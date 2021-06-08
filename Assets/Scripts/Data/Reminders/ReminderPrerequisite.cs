@@ -15,6 +15,9 @@ public static class ReminderPrerequisite
 
 		PreAttack		= 1 << 2,
 		PostAttack		= 1 << 3,
+
+		PreDefend		= 1 << 4,
+		PostDefend		= 1 << 5,
 	}
 
 	public static bool MeetPrerequisite(IHasReminder item, Type flag)
@@ -28,5 +31,31 @@ public static class ReminderPrerequisite
 		}
 
 		return false;
+	}
+
+	public static bool MeetPrerequisite(Type flag)
+	{
+		var listReminders = GetAllReminders();
+
+		foreach (var reminder in listReminders)
+		{
+			if (MeetPrerequisite(reminder, flag)) return true;
+		}
+
+		return false;
+	}
+
+	public static List<IHasReminder> GetAllReminders()
+	{
+		List<IHasReminder> listReminders = new List<IHasReminder>(Game.PlayerCharacter.Skills);
+		foreach (var item in Game.PlayerCharacter.Items)
+		{
+			if (Game.PlayerCharacter.IsEquipped(item))
+			{
+				listReminders.Add(item);
+			}
+		}
+
+		return listReminders;
 	}
 }

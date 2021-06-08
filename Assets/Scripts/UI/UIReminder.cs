@@ -6,7 +6,6 @@ using TMPro;
 
 public class UIReminder : MonoBehaviour
 {
-	[SerializeField] ReminderPrerequisite.Type _reminderPrerequisite = default;
 	[SerializeField] UIRowReminder _defaultRow = default;
 
 	List<UIRowReminder> _listRow = new List<UIRowReminder>();
@@ -16,19 +15,7 @@ public class UIReminder : MonoBehaviour
 		_listRow.Add(_defaultRow);
 	}
 
-	void OnEnable()
-	{
-		StartCoroutine(WaitForReady());
-	}
-
-	IEnumerator WaitForReady()
-	{
-		while (!Game.IsReady) yield return null;
-
-		Refresh();
-	}
-
-	void Refresh()
+	public void Refresh(ReminderPrerequisite.Type reminderPrerequisite)
 	{
 		if (!Game.IsReady) return;
 
@@ -36,16 +23,16 @@ public class UIReminder : MonoBehaviour
 
 		int i = 0;
 
-		var listReminders = new List<IHasReminder>(Game.PlayerCharacter.Skills);
+		var listReminders = ReminderPrerequisite.GetAllReminders();
 		listReminders = new List<IHasReminder>(listReminders
 			.OrderBy(r => r.StaminaCost)
 			.ThenBy(r => r.IsAction)
 			.ThenBy(r => r.IsExhaustable)
 			.ThenBy(r => r.name));
-
+		
 		foreach (var reminder in listReminders)
 		{
-			if (ReminderPrerequisite.MeetPrerequisite(reminder, _reminderPrerequisite))
+			if (ReminderPrerequisite.MeetPrerequisite(reminder, reminderPrerequisite))
 			{
 				if (i >= _listRow.Count)
 				{

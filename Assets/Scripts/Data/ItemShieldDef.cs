@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Definitions/Item: Shield", order = 10000)]
 public class ItemShieldDef : ItemDef, IDefender, IHandItem
 {
+	[Space]
 	[SerializeField] List<DefenseDieDef> _defenseDice = default;
 
 	public List<DefenseDieDef> DefenseDice { get { return _defenseDice; } }

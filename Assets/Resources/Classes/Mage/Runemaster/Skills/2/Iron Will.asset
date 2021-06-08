@@ -18,3 +18,4 @@ MonoBehaviour:
   _isExhaustable: 0
   _modifiers:
   - {fileID: 11400000, guid: 9dcfc24833fb56947b2ac0635d037fb2, type: 2}
+  _reminderPrerequisites: 08000000

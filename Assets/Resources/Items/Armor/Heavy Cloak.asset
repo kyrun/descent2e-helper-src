@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _traits: 05000000
   _modifiers: []
+  _reminderPrerequisites: 20000000
+  _staminaCost: 0
+  _isAction: 0
+  _isExhaustable: 1
   _defenseDice: []

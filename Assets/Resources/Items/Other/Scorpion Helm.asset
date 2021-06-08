@@ -15,3 +15,7 @@ MonoBehaviour:
   _traits: 09000000
   _modifiers:
   - {fileID: 11400000, guid: 5e325e12282f87c4b84b6fe4b18b716e, type: 2}
+  _reminderPrerequisites: 08000000
+  _staminaCost: 0
+  _isAction: 0
+  _isExhaustable: 0

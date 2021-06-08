@@ -6,6 +6,8 @@ using TMPro;
 
 public class UICombatRoller : MonoBehaviour, IRerollable
 {
+	const float REMINDER_DELAY = 3f;
+
 	[SerializeField] List<DieAnimator> _attackDiceAnimator = default;
 	[SerializeField] List<DieAnimator> _defenseDiceAnimator = default;
 	[SerializeField] TextMeshProUGUI _textAttacker = default;
@@ -18,8 +20,10 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 	[SerializeField] TextMeshProUGUI _textRange = default;
 	[SerializeField] TextMeshProUGUI _textDamage = default;
 	[SerializeField] GameObject _gobMissed = default;
-	[SerializeField] GameObject _gobBtnReminderPre = default;
-	[SerializeField] GameObject _gobBtnReminderPost = default;
+	[SerializeField] GameObject _gobBtnReminderPreAttack = default;
+	[SerializeField] GameObject _gobBtnReminderPostAttack = default;
+	[SerializeField] GameObject _gobBtnReminderPreDefend = default;
+	[SerializeField] GameObject _gobBtnReminderPostDefend = default;
 
 	IAttacker _attacker;
 	IDefender _defender;
@@ -46,7 +50,12 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 
 		_gobMissed.SetActive(false);
 		ResetResultsText();
-		ResetReminderButtons(true);
+		HideReminderBtns();
+	}
+
+	void OnDisable()
+	{
+		HideReminderBtns();
 	}
 
 	void ResetResultsText()
@@ -54,22 +63,48 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 		_textPierce.text = _textRangeModifier.text = _textDefense.text = _textHeart.text = _textSurge.text = _textRange.text = _textDamage.text = "--";
 	}
 
-	void ResetReminderButtons(bool isPreAttack)
+	void HideReminderBtns()
 	{
-		bool hasPreAttack = false, hasPostAttack = false;
-		foreach (var skill in Game.PlayerCharacter.Skills)
+		_gobBtnReminderPreAttack.SetActive(false);
+		_gobBtnReminderPostAttack.SetActive(false);
+		_gobBtnReminderPreDefend.SetActive(false);
+		_gobBtnReminderPostDefend.SetActive(false);
+	}
+
+	void ShowReminderButtonsAttack(bool isPreAttack)
+	{
+		bool hasPreAttack = (ReminderPrerequisite.MeetPrerequisite(ReminderPrerequisite.Type.PreAttack));
+		bool hasPostAttack = (ReminderPrerequisite.MeetPrerequisite(ReminderPrerequisite.Type.PostAttack));
+
+		_gobBtnReminderPreAttack.SetActive(isPreAttack && hasPreAttack);
+		_gobBtnReminderPostAttack.SetActive(!isPreAttack && hasPostAttack);
+
+		if (isPreAttack && hasPreAttack)
 		{
-			if (ReminderPrerequisite.MeetPrerequisite(skill, ReminderPrerequisite.Type.PreAttack))
-			{
-				hasPreAttack = true;
-			}
-			if (ReminderPrerequisite.MeetPrerequisite(skill, ReminderPrerequisite.Type.PostAttack))
-			{
-				hasPostAttack = true;
-			}
+			_gobBtnReminderPreAttack.GetComponent<Animation>().Play();
 		}
-		_gobBtnReminderPre.SetActive(isPreAttack && hasPreAttack);
-		_gobBtnReminderPost.SetActive(!isPreAttack && hasPostAttack);
+		if (!isPreAttack && hasPostAttack)
+		{
+			_gobBtnReminderPostAttack.GetComponent<Animation>().Play();
+		}
+	}
+
+	void ShowReminderButtonsDefend(bool isPreDefend)
+	{
+		bool hasPreDefend = (ReminderPrerequisite.MeetPrerequisite(ReminderPrerequisite.Type.PreDefend));
+		bool hasPostDefend = (ReminderPrerequisite.MeetPrerequisite(ReminderPrerequisite.Type.PostDefend));
+
+		_gobBtnReminderPreDefend.SetActive(isPreDefend && hasPreDefend);
+		_gobBtnReminderPostDefend.SetActive(!isPreDefend && hasPostDefend);
+
+		if (isPreDefend && hasPreDefend)
+		{
+			_gobBtnReminderPreDefend.GetComponent<Animation>().Play();
+		}
+		if (!isPreDefend && hasPostDefend)
+		{
+			_gobBtnReminderPostDefend.GetComponent<Animation>().Play();
+		}
 	}
 
 	void UpdateResult(RollResult result, AttackType attackType)
@@ -150,6 +185,9 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 			}
 		}
 		_textRange.transform.parent.gameObject.SetActive(_attacker != null && _attacker.AttackType == AttackType.Ranged);
+
+		if (defender is MonsterDef.Properties || defender == null) ShowReminderButtonsAttack(true); // attacking
+		else ShowReminderButtonsDefend(true); // defending
 	}
 
 	void ShowCombatRoll(List<AttackDieDef> attackDieDefs, List<DefenseDieDef> defenseDieDefs, List<int> attackRolledIndex, List<int> defendRolledIndex)
@@ -178,6 +216,7 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 		IsRolling = true;
 
 		ResetResultsText();
+		HideReminderBtns();
 
 		_lastRollResult = Roller.CombatRoll(_attacker, _defender, out _rolledFaceIndexAttack, out _rolledFaceIndexDefense);
 
@@ -238,7 +277,9 @@ public class UICombatRoller : MonoBehaviour, IRerollable
 
 		UpdateResult(result, _attacker != null ? _attacker.AttackType : AttackType.Melee);
 
-		ResetReminderButtons(false);
+		if (_defender is MonsterDef.Properties || _defender == null) ShowReminderButtonsAttack(false); // attacking
+		else ShowReminderButtonsDefend(false); // defending
+
 		IsRolling = false;
 		_coroutine = null;
 	}

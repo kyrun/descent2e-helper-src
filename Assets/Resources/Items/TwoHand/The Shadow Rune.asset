@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _traits: 0b0000000d000000
   _modifiers: []
+  _reminderPrerequisites: 08000000
+  _staminaCost: 0
+  _isAction: 0
+  _isExhaustable: 0
+  _pierce: 0
+  _rangeModifier: 0
   _attackType: 1
   _handedness: 1
   _attackDice:

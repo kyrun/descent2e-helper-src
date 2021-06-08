@@ -10,9 +10,9 @@ public class ModifierAttackOptionDef : CharacterModifierDef, IAttacker
     [SerializeField] List<AttackDieDef> _attackDie = default;
     [SerializeField] List<CharacterModifierDef> _modifiers = default;
 
-    public bool IgnoreCharacterBonuses { get { return _includeCharacterBonuses; } }
-    public AttackType AttackType { get { return _attackType; } }
-    public List<AttackDieDef> AttackDice { get { return _attackDie; } }
+    public bool IgnoreCharacterBonuses => _includeCharacterBonuses;
+    public AttackType AttackType => _attackType;
+    public List<AttackDieDef> AttackDice => _attackDie;
 
     public int Pierce
     {
@@ -30,7 +30,7 @@ public class ModifierAttackOptionDef : CharacterModifierDef, IAttacker
         }
     }
 
-    protected override void OnActivate(Character character)
+	protected override void OnActivate(Character character)
     {
         character.AddAttackOption(this);
     }

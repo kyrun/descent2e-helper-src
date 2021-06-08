@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Definitions/Item: Weapon", order = 10000)]
 public class ItemWeaponDef : ItemDef, IHandItem, IAttacker
 {
+	[Space]
 	[Range(0, 5)]
 	[SerializeField] int _pierce = 0;
 	[Range(0, 5)]
